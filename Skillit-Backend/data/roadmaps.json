@@ -1,0 +1,504 @@
+{
+  "app": "Skillit",
+  "version": "1.0.0",
+  "description": "Structured roadmaps for specialised tech careers",
+  "fields": [
+    {
+      "id": "frontend",
+      "label": "Frontend Development",
+      "badge": "Frontend Development",
+      "tagline": "Build the visual layer of the web — interfaces, animations, and user experiences that run in the browser.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "Web Foundations",
+          "skills": [
+            "HTML5 semantics",
+            "CSS3 & Flexbox",
+            "Responsive design",
+            "Browser DevTools"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "JavaScript Core",
+          "skills": [
+            "ES6+ syntax",
+            "DOM manipulation",
+            "Fetch API & async/await",
+            "Event handling"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Frameworks & Libraries",
+          "skills": [
+            "React / Vue / Angular",
+            "Component architecture",
+            "State management (Redux / Zustand)",
+            "React Router / Vue Router"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Advanced & Deploy",
+          "skills": [
+            "TypeScript basics",
+            "Webpack / Vite",
+            "Testing with Jest & React Testing Library",
+            "CI/CD & Netlify / Vercel"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Frontend development is the practice of building everything a user sees and interacts with in a web application. A frontend developer translates design mockups into responsive, accessible, and performant interfaces using HTML, CSS, and JavaScript.",
+        "details": "The journey begins with mastering the fundamentals — structuring content with semantic HTML, styling it with CSS including Flexbox and Grid, and adding interactivity with vanilla JavaScript. Once these are solid, you progress into modern JavaScript frameworks like React, Vue, or Angular, which enable building large-scale applications with reusable components.",
+        "advanced": "Advanced frontend engineers also handle performance optimisation, accessibility (WCAG), cross-browser compatibility, and increasingly, TypeScript for type-safe codebases. Understanding build tools like Webpack or Vite, and deployment pipelines, rounds out a complete frontend skill set."
+      },
+      "resources": [
+        {
+          "resource_id": "fe_r1",
+          "title": "Full Web Development Bootcamp — The Odin Project Path",
+          "channel": "Traversy Media",
+          "description": "A comprehensive walkthrough covering HTML, CSS, and JavaScript from scratch — ideal for absolute beginners starting their frontend journey.",
+          "url": "https://www.youtube.com/watch?v=mU6anWqZJcc",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "fe_r2",
+          "title": "React JS Full Course for Beginners",
+          "channel": "Dave Gray",
+          "description": "A complete React course covering components, hooks, state, props, and context — the most in-demand frontend framework today.",
+          "url": "https://www.youtube.com/watch?v=RVFAyFWO4go",
+          "platform": "YouTube"
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "Backend Development",
+      "badge": "Backend Development",
+      "tagline": "Power applications from the server side — APIs, databases, authentication, and business logic.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "Programming Basics",
+          "skills": [
+            "Python / Node.js / Java",
+            "Control flow & OOP",
+            "CLI & file system",
+            "Package managers (npm / pip)"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Databases",
+          "skills": [
+            "SQL & PostgreSQL",
+            "NoSQL & MongoDB",
+            "ORM (Prisma / SQLAlchemy)",
+            "Database schema design"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "APIs & Authentication",
+          "skills": [
+            "REST API design",
+            "Express / FastAPI / Django",
+            "JWT & OAuth2",
+            "Middleware & input validation"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Scale & Deploy",
+          "skills": [
+            "Docker & containers",
+            "Cloud platforms (AWS / GCP)",
+            "Caching with Redis",
+            "Monitoring & logging"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Backend development refers to the server-side of web applications — the logic, databases, and infrastructure that power what users experience on the front end. Backend developers build and maintain the systems that process data, enforce business rules, and serve content to clients.",
+        "details": "The core skills include proficiency in a server-side language such as Python, Node.js, Java, or Go, along with a deep understanding of relational databases (PostgreSQL, MySQL) and NoSQL databases (MongoDB, Redis). You will design and build RESTful APIs or GraphQL endpoints that frontend clients consume.",
+        "advanced": "As you advance, you'll work with authentication systems (JWT, OAuth), message queues, microservices, containerisation with Docker, and cloud deployment on platforms like AWS or GCP. Understanding security practices — input validation, SQL injection prevention, and HTTPS — is essential throughout."
+      },
+      "resources": [
+        {
+          "resource_id": "be_r1",
+          "title": "Backend Development Full Course — Node.js, Express & MongoDB",
+          "channel": "freeCodeCamp",
+          "description": "Covers the complete Node.js backend stack from server setup and routing to database integration and authentication.",
+          "url": "https://www.youtube.com/watch?v=Oe421EPjeBE",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "be_r2",
+          "title": "Django REST Framework Full Course",
+          "channel": "Dennis Ivy",
+          "description": "Build production-ready REST APIs with Python and Django, including serialisers, views, authentication, and permissions.",
+          "url": "https://www.youtube.com/watch?v=c708Nf0cHrs",
+          "platform": "YouTube"
+        }
+      ]
+    },
+    {
+      "id": "fullstack",
+      "label": "Fullstack Development",
+      "badge": "Fullstack Development",
+      "tagline": "Command the entire application stack — from pixel-perfect UIs to scalable server infrastructure.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "Frontend Core",
+          "skills": [
+            "HTML / CSS / JavaScript",
+            "React or Vue",
+            "Consuming REST APIs",
+            "Responsive design principles"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Backend Core",
+          "skills": [
+            "Node.js / Python server",
+            "REST API creation",
+            "SQL databases",
+            "Auth & session management"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Stack Integration",
+          "skills": [
+            "Full MERN / PERN stack",
+            "State & API synchronisation",
+            "Form handling & validation",
+            "Error boundaries & fallbacks"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Production & DevOps",
+          "skills": [
+            "Docker & Nginx",
+            "Cloud deployment (AWS / Vercel)",
+            "CI/CD pipelines",
+            "Performance optimisation & SEO"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Fullstack development means being proficient across the entire technology stack — both the client-facing frontend and the server-side backend. A fullstack developer can independently build, deploy, and maintain complete web applications.",
+        "details": "The fullstack path builds on both frontend and backend foundations. You'll learn a popular combination such as the MERN stack (MongoDB, Express, React, Node.js) or the PERN stack (PostgreSQL, Express, React, Node.js), understanding how each layer communicates. This includes designing database schemas, building APIs, consuming them from React components, and managing shared state.",
+        "advanced": "Fullstack developers also handle deployment — containerising applications with Docker, configuring web servers like Nginx, setting up cloud hosting, and implementing CI/CD pipelines. The role demands breadth, making you highly versatile and valuable in startups and product teams."
+      },
+      "resources": [
+        {
+          "resource_id": "fs_r1",
+          "title": "MERN Stack Full Course — Build a Social Media App",
+          "channel": "JavaScript Mastery",
+          "description": "A project-based MERN stack tutorial that walks through building a complete, full-featured social media application end to end.",
+          "url": "https://www.youtube.com/watch?v=ngc9gnGgUdA",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "fs_r2",
+          "title": "Full Stack Web Development for Beginners (Full Course)",
+          "channel": "freeCodeCamp",
+          "description": "Covers the complete picture of fullstack development including frontend fundamentals, backend APIs, and database design in one course.",
+          "url": "https://www.youtube.com/watch?v=nu_pCVPKzTk",
+          "platform": "YouTube"
+        }
+      ]
+    },
+    {
+      "id": "data_engineering",
+      "label": "Data Engineering",
+      "badge": "Data Engineering",
+      "tagline": "Design and build the pipelines and infrastructure that move, transform, and store data at scale.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "Foundations",
+          "skills": [
+            "Python for data",
+            "SQL & advanced queries",
+            "Linux & shell scripting",
+            "Git & version control"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Data Pipelines",
+          "skills": [
+            "ETL / ELT concepts",
+            "Apache Airflow orchestration",
+            "dbt (data build tool)",
+            "Batch vs streaming patterns"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Big Data",
+          "skills": [
+            "Apache Spark & PySpark",
+            "Apache Kafka streaming",
+            "HDFS & data lakes",
+            "Parquet, Avro & ORC formats"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Cloud & Warehousing",
+          "skills": [
+            "AWS / GCP / Azure data services",
+            "Snowflake & BigQuery",
+            "Data modelling & star schema",
+            "Pipeline monitoring & alerting"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Data engineering is the discipline of building the systems and infrastructure that collect, store, and prepare data for analysis and machine learning. Data engineers are the architects of data pipelines — ensuring that clean, reliable, and timely data flows from source systems to destinations where analysts and scientists can use it.",
+        "details": "The core skill set includes strong SQL, Python programming, and a solid understanding of ETL (Extract, Transform, Load) and ELT patterns. You'll work with workflow orchestration tools like Apache Airflow, transformation frameworks like dbt, and distributed processing engines like Apache Spark for handling large-scale data.",
+        "advanced": "Modern data engineering increasingly takes place in the cloud. Platforms such as AWS (Redshift, Glue, S3), Google Cloud (BigQuery, Dataflow), and Azure (Synapse, Data Factory) are where production pipelines run. Understanding data warehouse design, data modelling, and streaming with Apache Kafka rounds out the advanced skill set."
+      },
+      "resources": [
+        {
+          "resource_id": "de_r1",
+          "title": "Data Engineering Full Course — Pipelines, Airflow, Spark & More",
+          "channel": "freeCodeCamp",
+          "description": "An end-to-end introduction to data engineering covering pipelines, orchestration with Airflow, and big data processing with Spark.",
+          "url": "https://www.youtube.com/watch?v=ysz5S6PUM-U",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "de_r2",
+          "title": "Apache Spark Full Course — Big Data Processing with PySpark",
+          "channel": "Great Learning",
+          "description": "A comprehensive deep dive into Apache Spark and PySpark for processing and analysing large-scale datasets in distributed environments.",
+          "url": "https://www.youtube.com/watch?v=S2MUhGA3lEw",
+          "platform": "YouTube"
+        }
+      ]
+    },
+    {
+      "id": "machine_learning",
+      "label": "Machine Learning",
+      "badge": "Machine Learning",
+      "tagline": "Build intelligent systems that learn from data — from classical algorithms to deep neural networks.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "Math & Python",
+          "skills": [
+            "Linear algebra basics",
+            "Statistics & probability",
+            "NumPy & Pandas",
+            "Data visualisation (Matplotlib / Seaborn)"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Classical ML",
+          "skills": [
+            "Regression & classification",
+            "Scikit-learn library",
+            "Feature engineering",
+            "Model evaluation & cross-validation"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Deep Learning",
+          "skills": [
+            "Neural network fundamentals",
+            "TensorFlow / PyTorch",
+            "CNNs, RNNs & Transformers",
+            "Transfer learning & fine-tuning"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "MLOps & Deploy",
+          "skills": [
+            "Model serving with FastAPI",
+            "MLflow experiment tracking",
+            "Docker for ML workflows",
+            "Cloud ML platforms (SageMaker / Vertex AI)"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Machine learning is the field of building algorithms and statistical models that enable computers to learn from data without being explicitly programmed. ML engineers develop systems that improve their performance over time by identifying patterns and making decisions.",
+        "details": "The foundation of machine learning requires a solid grasp of mathematics — linear algebra for understanding model internals, and statistics and probability for reasoning about uncertainty. Python is the dominant language in the field, with libraries like NumPy, Pandas, and Matplotlib for data manipulation and visualisation, and Scikit-learn for classical algorithms like linear regression, decision trees, and SVMs.",
+        "advanced": "Deep learning extends classical ML using neural networks with many layers. Frameworks such as TensorFlow and PyTorch are the industry standards. You'll study convolutional neural networks for image tasks, transformers and LLMs for NLP, and recurrent architectures for sequences. Advanced practitioners also handle MLOps — deploying, monitoring, and maintaining models in production using tools like MLflow, Docker, and cloud ML platforms."
+      },
+      "resources": [
+        {
+          "resource_id": "ml_r1",
+          "title": "Machine Learning Full Course — Andrew Ng's Stanford Lectures",
+          "channel": "Stanford Online",
+          "description": "The most respected and comprehensive introduction to machine learning, taught by Andrew Ng — covering theory, intuition, and practical algorithms.",
+          "url": "https://www.youtube.com/watch?v=jGwO_UgTS7I",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "ml_r2",
+          "title": "Deep Learning with PyTorch — Full Course",
+          "channel": "freeCodeCamp",
+          "description": "A hands-on deep learning course using PyTorch, covering neural networks, CNNs, RNNs, and model training from fundamentals to deployment.",
+          "url": "https://www.youtube.com/watch?v=GIsg-ZUy0MY",
+          "platform": "YouTube"
+        }
+      ]
+    },
+    {
+      "id": "data_science",
+      "label": "Data Science",
+      "badge": "Data Science",
+      "tagline": "Extract actionable insights from data — through analysis, visualisation, statistical modelling, and storytelling.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "Data Foundations",
+          "skills": [
+            "Python & R basics",
+            "Statistics & probability",
+            "Pandas & NumPy",
+            "Data cleaning & wrangling"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Exploration & Visualisation",
+          "skills": [
+            "Exploratory Data Analysis (EDA)",
+            "Matplotlib, Seaborn & Plotly",
+            "SQL for data querying",
+            "Tableau / Power BI basics"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Modelling & Analysis",
+          "skills": [
+            "Statistical hypothesis testing",
+            "Regression & classification models",
+            "Clustering & dimensionality reduction",
+            "A/B testing & experimentation"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Communication & Production",
+          "skills": [
+            "Data storytelling & reporting",
+            "Jupyter notebooks & dashboards",
+            "Model deployment basics",
+            "Business metrics & KPIs"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Data science is the interdisciplinary field of extracting knowledge and insights from structured and unstructured data using scientific methods, statistics, and algorithms. Data scientists bridge the gap between raw data and business decision-making.",
+        "details": "The data science workflow spans data collection, cleaning, exploration, modelling, and communication. You'll use Python or R for statistical analysis, Pandas and NumPy for data manipulation, and visualisation libraries like Matplotlib, Seaborn, and Plotly to uncover and present patterns. SQL is essential for querying large datasets stored in relational databases.",
+        "advanced": "Advanced data scientists design and run experiments (A/B testing), build predictive models using machine learning, and communicate findings through compelling dashboards and reports. Tools like Tableau and Power BI are widely used for business intelligence. Understanding the domain context — product, marketing, finance, healthcare — is equally important as technical skills."
+      },
+      "resources": [
+        {
+          "resource_id": "ds_r1",
+          "title": "Data Science Full Course for Beginners",
+          "channel": "freeCodeCamp",
+          "description": "A complete beginner-friendly data science course covering Python, statistics, Pandas, data visualisation, and introductory machine learning.",
+          "url": "https://www.youtube.com/watch?v=ua-CiDNNj30",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "ds_r2",
+          "title": "Statistics for Data Science — Full Course",
+          "channel": "Krish Naik",
+          "description": "A thorough course on statistical foundations for data science including probability, hypothesis testing, distributions, and regression analysis.",
+          "url": "https://www.youtube.com/watch?v=LZzq1zSL1bs",
+          "platform": "YouTube"
+        }
+      ]
+    },
+    {
+      "id": "generative_ai",
+      "label": "Generative AI",
+      "badge": "Generative AI",
+      "tagline": "Design and build AI systems that generate text, images, code, and more — using foundation models and modern AI techniques.",
+      "roadmap": [
+        {
+          "phase": 1,
+          "title": "AI & ML Foundations",
+          "skills": [
+            "Python for AI",
+            "Neural network basics",
+            "Linear algebra & probability",
+            "Intro to deep learning"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Foundation Models",
+          "skills": [
+            "Transformer architecture",
+            "Large Language Models (LLMs)",
+            "Prompt engineering",
+            "Hugging Face ecosystem"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Building with GenAI",
+          "skills": [
+            "LangChain & LlamaIndex",
+            "Retrieval-Augmented Generation (RAG)",
+            "Fine-tuning & LoRA",
+            "Multimodal models (text, image, audio)"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Deployment & Safety",
+          "skills": [
+            "API integration (OpenAI / Anthropic / Gemini)",
+            "Vector databases (Pinecone / Weaviate)",
+            "AI safety & responsible AI",
+            "Production GenAI pipelines"
+          ]
+        }
+      ],
+      "content": {
+        "overview": "Generative AI is one of the fastest-growing fields in technology, focused on building systems that can create new content — text, images, audio, code, and video — using large neural network models. Practitioners in this space build applications powered by foundation models and design the pipelines that make AI useful in real-world products.",
+        "details": "The foundation starts with understanding how transformer-based models work — the architecture behind GPT, Claude, Gemini, and DALL-E. Prompt engineering is an early and essential skill, enabling you to guide model behaviour effectively. You'll then move into working with the Hugging Face ecosystem to load, fine-tune, and evaluate open-source models for specific tasks.",
+        "advanced": "At the advanced level, you'll build production-ready AI applications using frameworks like LangChain and LlamaIndex, implementing Retrieval-Augmented Generation (RAG) to ground models in private knowledge bases using vector databases like Pinecone or Weaviate. Fine-tuning techniques such as LoRA and PEFT allow you to customise large models efficiently. AI safety, hallucination mitigation, and responsible deployment are critical considerations for every practitioner."
+      },
+      "resources": [
+        {
+          "resource_id": "genai_r1",
+          "title": "Generative AI Full Course — Gemini Pro, OpenAI, LangChain & More",
+          "channel": "Krish Naik",
+          "description": "A comprehensive generative AI course covering LLMs, prompt engineering, LangChain, RAG pipelines, and real-world application building from scratch.",
+          "url": "https://www.youtube.com/watch?v=d4yCWBGFCEs",
+          "platform": "YouTube"
+        },
+        {
+          "resource_id": "genai_r2",
+          "title": "LangChain Full Course — Build LLM Apps with Python",
+          "channel": "freeCodeCamp",
+          "description": "A hands-on LangChain course demonstrating how to build intelligent LLM-powered applications including chatbots, RAG systems, and AI agents.",
+          "url": "https://www.youtube.com/watch?v=HSZ_uaif57o",
+          "platform": "YouTube"
+        }
+      ]
+    }
+  ]
+}

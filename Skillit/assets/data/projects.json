@@ -1,0 +1,1057 @@
+{
+  "app": "Skillit",
+  "section": "Domain Projects",
+  "description": "Curated project ideas across three difficulty levels for every domain — designed to help students build a strong, practical portfolio.",
+  "domains": [
+    {
+      "domain_id": "frontend",
+      "domain_label": "Frontend Development",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "fe_b1",
+          "title": "Personal Portfolio Website",
+          "tagline": "Design and build your own personal portfolio to showcase your skills and projects.",
+          "overview": "Your first real-world frontend project — a personal portfolio website that introduces you to the world. You will create a multi-section webpage with an about section, skills list, project showcase, and contact form, applying the core web technologies you have learned.",
+          "what_you_will_build": "A responsive, multi-page portfolio website with smooth scrolling, a navigation bar, project cards, and a working contact form.",
+          "what_you_will_learn": [
+            "Structuring web pages using semantic HTML5",
+            "Styling layouts with CSS Flexbox and Grid",
+            "Making websites responsive across mobile, tablet, and desktop screens",
+            "Adding basic interactivity with vanilla JavaScript"
+          ],
+          "skills_gained": ["HTML5", "CSS3", "Responsive Design", "JavaScript basics"],
+          "trending_technologies": ["HTML", "CSS", "JavaScript", "GitHub Pages"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "fe_b2",
+          "title": "Interactive Quiz App",
+          "tagline": "Build a browser-based quiz game with a score tracker and instant feedback.",
+          "overview": "A fun and practical project where you build a multiple-choice quiz application entirely in the browser. Users answer questions, receive instant feedback on each answer, and see their final score at the end. This project solidifies your JavaScript fundamentals.",
+          "what_you_will_build": "A quiz app with a question bank, multiple-choice options, a real-time score counter, and a results summary screen.",
+          "what_you_will_learn": [
+            "Manipulating the DOM dynamically with JavaScript",
+            "Managing application state (current question, score) with variables",
+            "Handling click events and user input",
+            "Using arrays and objects to store and cycle through question data"
+          ],
+          "skills_gained": ["DOM manipulation", "JavaScript logic", "Event handling", "CSS styling"],
+          "trending_technologies": ["HTML", "CSS", "Vanilla JavaScript"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "fe_b3",
+          "title": "Weather Dashboard",
+          "tagline": "Fetch live weather data from an API and display it in a clean, visual dashboard.",
+          "overview": "This project introduces you to working with external APIs for the first time. You will build a weather dashboard where users can search for any city and instantly see the current temperature, weather condition, humidity, and wind speed — all fetched live from a weather API.",
+          "what_you_will_build": "A weather dashboard with a city search bar, live weather data cards, weather icons, and a 5-day forecast section.",
+          "what_you_will_learn": [
+            "Making API calls using the Fetch API and handling JSON responses",
+            "Dynamically updating the UI based on data received from an external source",
+            "Handling loading states and error messages gracefully",
+            "Displaying icons and conditional content based on data values"
+          ],
+          "skills_gained": ["API integration", "Fetch API", "Async/Await", "Dynamic UI rendering"],
+          "trending_technologies": ["HTML", "CSS", "JavaScript", "OpenWeatherMap API"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "fe_i1",
+          "title": "E-Commerce Product Page with Cart",
+          "tagline": "Build a fully functional product listing and shopping cart experience using React.",
+          "overview": "Step into professional frontend development by building a realistic e-commerce product page. Users can browse products, filter by category, add items to a cart, update quantities, and view a running total — all within a React application with proper state management.",
+          "what_you_will_build": "A React-based product catalogue with category filters, a dynamic shopping cart sidebar, quantity controls, and a checkout summary.",
+          "what_you_will_learn": [
+            "Building reusable React components and passing data through props",
+            "Managing complex UI state using React hooks (useState, useReducer)",
+            "Implementing filter and search functionality across a product list",
+            "Using Context API or Redux for global cart state management"
+          ],
+          "skills_gained": ["React", "State management", "Component design", "Context API / Redux"],
+          "trending_technologies": ["React", "Tailwind CSS", "Redux / Zustand", "Vite"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "fe_i2",
+          "title": "Real-Time Chat UI with WebSocket",
+          "tagline": "Build a live chat interface that sends and receives messages instantly using WebSockets.",
+          "overview": "Take your frontend skills beyond static pages by building a real-time chat interface. Users can send messages that appear instantly on screen without needing to refresh the page. This project introduces you to WebSocket communication and real-time data handling — skills that are in high demand.",
+          "what_you_will_build": "A chat application UI with a message thread, user avatars, timestamps, a typing indicator, and real-time message delivery via WebSockets.",
+          "what_you_will_learn": [
+            "Establishing and managing WebSocket connections in the browser",
+            "Updating the UI in real time as new messages arrive",
+            "Designing scrollable, auto-updating message threads",
+            "Handling connection states (connected, disconnected, reconnecting)"
+          ],
+          "skills_gained": ["WebSockets", "Real-time UI", "React", "Async event handling"],
+          "trending_technologies": ["React", "Socket.io", "WebSocket API", "Tailwind CSS"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "fe_i3",
+          "title": "Markdown Blog Editor with Live Preview",
+          "tagline": "Create a browser-based markdown editor that renders formatted content as you type.",
+          "overview": "Build a Markdown editor — similar to tools used by developers every day — where users type raw Markdown on one side and see a beautifully rendered preview on the other in real time. This project deepens your understanding of React and working with third-party libraries.",
+          "what_you_will_build": "A split-pane markdown editor with a live HTML preview, syntax highlighting, toolbar shortcuts (bold, italic, headings), and the ability to save drafts to local storage.",
+          "what_you_will_learn": [
+            "Parsing and rendering Markdown to HTML using a library like Marked.js or React Markdown",
+            "Synchronising two panes in real time using controlled components in React",
+            "Persisting editor content to the browser's local storage",
+            "Building custom toolbar components that insert Markdown syntax on click"
+          ],
+          "skills_gained": ["React", "Third-party library integration", "Local storage", "Real-time rendering"],
+          "trending_technologies": ["React", "Marked.js / React Markdown", "CodeMirror", "Tailwind CSS"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "fe_a1",
+          "title": "Full-Featured Dashboard with Data Visualisation",
+          "tagline": "Build a professional analytics dashboard with interactive charts, filters, and real-time data.",
+          "overview": "Design and develop a comprehensive analytics dashboard of the kind used in SaaS products. It will include multiple chart types, date range filters, KPI summary cards, and a data table — all built in React with a charting library and optionally connected to a live data source.",
+          "what_you_will_build": "A multi-section analytics dashboard with line charts, bar charts, pie charts, a filterable data table, KPI metric cards, and a date range picker.",
+          "what_you_will_learn": [
+            "Integrating charting libraries like Recharts or Chart.js within a React application",
+            "Implementing complex filter logic that updates multiple charts simultaneously",
+            "Optimising React rendering performance for data-heavy UIs using memo and useMemo",
+            "Designing accessible, responsive dashboard layouts with CSS Grid"
+          ],
+          "skills_gained": ["React", "Data visualisation", "Performance optimisation", "Recharts / Chart.js", "TypeScript"],
+          "trending_technologies": ["React", "TypeScript", "Recharts", "Tailwind CSS", "Vite"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "fe_a2",
+          "title": "Progressive Web App (PWA) with Offline Support",
+          "tagline": "Convert a web application into an installable PWA that works fully offline.",
+          "overview": "Push your frontend skills to a professional level by building a Progressive Web App — a web application that can be installed on a user's device and continues to function even without an internet connection. This project introduces service workers, caching strategies, and the Web App Manifest.",
+          "what_you_will_build": "A task management or note-taking PWA that users can install on their phone or desktop, use offline, and sync data automatically when connectivity is restored.",
+          "what_you_will_learn": [
+            "Registering and managing service workers for background processing and caching",
+            "Implementing cache-first and network-first strategies using the Cache API",
+            "Configuring a Web App Manifest for installability on mobile and desktop",
+            "Handling offline/online state transitions and syncing data with IndexedDB"
+          ],
+          "skills_gained": ["Service Workers", "PWA", "Caching strategies", "IndexedDB", "React"],
+          "trending_technologies": ["React", "Workbox", "Vite PWA Plugin", "IndexedDB", "Web App Manifest"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "fe_a3",
+          "title": "Design System and Component Library",
+          "tagline": "Build your own reusable UI component library with documentation and theming support.",
+          "overview": "Senior frontend engineers are expected to think beyond individual components — they build and maintain design systems. In this project, you will create a fully documented UI component library (buttons, modals, inputs, cards, tooltips) with consistent theming, dark mode support, and an interactive documentation site built with Storybook.",
+          "what_you_will_build": "A component library published as an npm package, with TypeScript types, theming via CSS variables, dark/light mode toggle, and a Storybook documentation site showcasing each component.",
+          "what_you_will_learn": [
+            "Architecting scalable, reusable React components with a consistent API",
+            "Implementing design tokens and CSS variable-based theming systems",
+            "Writing TypeScript interfaces and prop types for a published component library",
+            "Documenting components with Storybook and publishing the library to npm"
+          ],
+          "skills_gained": ["React", "TypeScript", "Storybook", "Design systems", "npm publishing"],
+          "trending_technologies": ["React", "TypeScript", "Storybook", "Rollup / Vite", "CSS Variables"]
+        }
+      ]
+    },
+    {
+      "domain_id": "backend",
+      "domain_label": "Backend Development",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "be_b1",
+          "title": "RESTful To-Do List API",
+          "tagline": "Build your first REST API with full CRUD operations for managing tasks.",
+          "overview": "The perfect starter backend project — you will build a REST API for a to-do list application. Users can create, read, update, and delete tasks through API endpoints. This introduces you to the fundamentals of server-side development, routing, and HTTP methods.",
+          "what_you_will_build": "A REST API with endpoints to create tasks, list all tasks, update task status, and delete tasks — tested using Postman or Thunder Client.",
+          "what_you_will_learn": [
+            "Setting up a web server using Express (Node.js) or FastAPI (Python)",
+            "Designing RESTful routes following HTTP conventions (GET, POST, PUT, DELETE)",
+            "Storing and retrieving data from a simple database or in-memory store",
+            "Testing API endpoints using tools like Postman"
+          ],
+          "skills_gained": ["REST API design", "Express / FastAPI", "HTTP methods", "CRUD operations"],
+          "trending_technologies": ["Node.js", "Express", "Python", "FastAPI", "Postman"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "be_b2",
+          "title": "User Registration and Login System",
+          "tagline": "Build a secure authentication system with registration, login, and password hashing.",
+          "overview": "Authentication is a core backend skill. In this project you will build a user registration and login system that securely stores passwords using hashing and returns a token upon successful login. This is the foundation of almost every real-world application.",
+          "what_you_will_build": "A backend API with user registration, login, password hashing using bcrypt, and JWT token generation for authenticated sessions.",
+          "what_you_will_learn": [
+            "Hashing passwords securely using bcrypt before storing them in a database",
+            "Generating and verifying JSON Web Tokens (JWT) for session management",
+            "Creating protected routes that require a valid token to access",
+            "Handling validation and returning meaningful error messages"
+          ],
+          "skills_gained": ["Authentication", "JWT", "bcrypt", "Express / FastAPI", "PostgreSQL / MongoDB"],
+          "trending_technologies": ["Node.js", "Express", "bcrypt", "JWT", "MongoDB / PostgreSQL"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "be_b3",
+          "title": "URL Shortener Service",
+          "tagline": "Build a backend service that converts long URLs into short, shareable links.",
+          "overview": "URL shorteners like Bitly are classic backend projects that cover database interaction, unique ID generation, and redirect logic. You will build an API that accepts a long URL, stores it with a short code in a database, and redirects users when they visit the short link.",
+          "what_you_will_build": "A URL shortening API with endpoints to create short links, redirect to original URLs, and track how many times each link has been clicked.",
+          "what_you_will_learn": [
+            "Generating unique short codes and ensuring there are no collisions in the database",
+            "Performing database lookups and HTTP redirects on the server side",
+            "Storing and retrieving records using a relational or NoSQL database",
+            "Building a simple click counter to track usage statistics per link"
+          ],
+          "skills_gained": ["Database operations", "HTTP redirects", "Unique ID generation", "Node.js / Python"],
+          "trending_technologies": ["Node.js", "Express", "MongoDB / PostgreSQL", "nanoid"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "be_i1",
+          "title": "Blog Platform API with Role-Based Access",
+          "tagline": "Build a full-featured blog backend where different users have different permissions.",
+          "overview": "Go beyond simple CRUD by building a blog platform API with multiple user roles. Authors can create and edit their own posts, while admins can manage all content. This project teaches you how to implement role-based access control (RBAC), one of the most important patterns in backend development.",
+          "what_you_will_build": "A REST API for a blogging platform with user roles (reader, author, admin), post creation and editing, comment threads, and access control middleware that enforces permissions on each route.",
+          "what_you_will_learn": [
+            "Designing a relational database schema with relationships between users, posts, and comments",
+            "Implementing role-based access control using middleware",
+            "Writing complex database queries with filtering, pagination, and sorting",
+            "Handling file uploads for post cover images using Multer or similar libraries"
+          ],
+          "skills_gained": ["RBAC", "Middleware", "Relational databases", "ORM (Prisma / Sequelize)", "File uploads"],
+          "trending_technologies": ["Node.js", "Express", "PostgreSQL", "Prisma", "JWT", "Multer"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "be_i2",
+          "title": "Real-Time Notification System",
+          "tagline": "Build a backend notification service that pushes live updates to connected users.",
+          "overview": "Real-time features are expected in modern applications. In this project, you will build a notification system where the server pushes updates (such as new messages, order status changes, or alerts) to users instantly without them needing to refresh the page — using WebSockets or Server-Sent Events.",
+          "what_you_will_build": "A backend notification service with a WebSocket or SSE connection layer, a notification storage system in the database, and endpoints to mark notifications as read and retrieve notification history.",
+          "what_you_will_learn": [
+            "Managing persistent WebSocket or SSE connections between the server and multiple clients",
+            "Broadcasting targeted notifications to specific users or groups",
+            "Storing notification history in a database and querying unread counts",
+            "Handling connection drops and implementing reconnection strategies"
+          ],
+          "skills_gained": ["WebSockets", "Server-Sent Events", "Real-time systems", "Redis Pub/Sub", "Node.js"],
+          "trending_technologies": ["Node.js", "Socket.io", "Redis", "PostgreSQL", "Express"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "be_i3",
+          "title": "E-Commerce Order Management API",
+          "tagline": "Build a backend system to handle products, orders, payments, and inventory tracking.",
+          "overview": "Simulate the backend of a real e-commerce platform by building an order management API. This project covers complex business logic — managing product inventory, processing orders, integrating a payment gateway, and updating order statuses through a defined workflow.",
+          "what_you_will_build": "A REST API covering product management, shopping cart logic, order placement, payment integration (Stripe sandbox), inventory decrement on purchase, and order status tracking.",
+          "what_you_will_learn": [
+            "Designing a multi-table relational schema for products, orders, and order items",
+            "Integrating a third-party payment gateway (Stripe) in test/sandbox mode",
+            "Implementing transactional database operations to ensure data consistency",
+            "Building order status workflows (pending → confirmed → shipped → delivered)"
+          ],
+          "skills_gained": ["Complex API design", "Stripe integration", "Database transactions", "Business logic implementation"],
+          "trending_technologies": ["Node.js", "Express", "PostgreSQL", "Prisma", "Stripe API", "Docker"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "be_a1",
+          "title": "Microservices Architecture with API Gateway",
+          "tagline": "Break a monolithic application into independent microservices connected through an API gateway.",
+          "overview": "Microservices are the backbone of large-scale backend systems at companies like Netflix and Amazon. In this advanced project, you will split an application (such as a marketplace) into independent services — user service, product service, order service — each with its own database, communicating through an API gateway and a message queue.",
+          "what_you_will_build": "A set of independent microservices (user, product, order) each deployed as a separate Docker container, connected via an API gateway (like Kong or a custom Express gateway) and communicating asynchronously through RabbitMQ or Kafka.",
+          "what_you_will_learn": [
+            "Designing service boundaries and defining inter-service communication contracts",
+            "Building and running multiple services simultaneously using Docker Compose",
+            "Implementing asynchronous messaging between services using RabbitMQ or Kafka",
+            "Centralising authentication and routing through an API gateway"
+          ],
+          "skills_gained": ["Microservices", "Docker", "Message queues", "API gateway", "RabbitMQ / Kafka"],
+          "trending_technologies": ["Node.js", "Docker", "RabbitMQ / Kafka", "Kong / Express Gateway", "PostgreSQL", "Redis"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "be_a2",
+          "title": "Scalable File Storage and CDN Service",
+          "tagline": "Build a backend file storage system with cloud upload, retrieval, and CDN delivery.",
+          "overview": "Every serious web application needs to handle files — images, documents, videos. In this project, you will build a complete file storage service where users can upload files, which are then stored in cloud object storage (AWS S3 or Google Cloud Storage), processed (resized, compressed), and served through a CDN for fast global delivery.",
+          "what_you_will_build": "A file management API that accepts uploads, stores files in S3, generates pre-signed URLs for secure access, processes images on upload (resize / compress), and tracks file metadata in a database.",
+          "what_you_will_learn": [
+            "Integrating AWS S3 or Google Cloud Storage for scalable object storage",
+            "Generating time-limited pre-signed URLs for secure, direct file access",
+            "Processing images on the server using Sharp or a similar library",
+            "Managing file metadata (owner, size, type, upload date) in a relational database"
+          ],
+          "skills_gained": ["Cloud storage (AWS S3)", "File processing", "Pre-signed URLs", "Image optimisation", "Node.js"],
+          "trending_technologies": ["Node.js", "AWS S3", "Sharp", "PostgreSQL", "Docker", "CloudFront CDN"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "be_a3",
+          "title": "GraphQL API with Subscriptions and Caching",
+          "tagline": "Replace REST with a flexible GraphQL API that supports real-time subscriptions and intelligent caching.",
+          "overview": "GraphQL is increasingly replacing REST in modern backend systems, offering clients precise control over the data they fetch. In this advanced project, you will design a full GraphQL API with queries, mutations, and real-time subscriptions — optimised with Redis caching and protected by authentication.",
+          "what_you_will_build": "A GraphQL API for a social or blogging platform with queries (fetch posts, users), mutations (create post, follow user), subscriptions (live comment feed), DataLoader for N+1 query prevention, and Redis for response caching.",
+          "what_you_will_learn": [
+            "Designing a GraphQL schema with types, queries, mutations, and subscriptions",
+            "Resolving nested relationships efficiently using DataLoader to prevent N+1 queries",
+            "Implementing real-time subscriptions using WebSockets through GraphQL",
+            "Layering Redis caching onto frequent GraphQL queries to reduce database load"
+          ],
+          "skills_gained": ["GraphQL", "Apollo Server", "DataLoader", "Redis caching", "WebSocket subscriptions"],
+          "trending_technologies": ["Node.js", "Apollo Server", "GraphQL", "Redis", "PostgreSQL", "DataLoader"]
+        }
+      ]
+    },
+    {
+      "domain_id": "fullstack",
+      "domain_label": "Fullstack Development",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "fs_b1",
+          "title": "Notes App with User Accounts",
+          "tagline": "Build a note-taking app where users can sign up, log in, and manage their personal notes.",
+          "overview": "Your first complete fullstack application — a notes app with user authentication. Users register and log in to their own account, then create, edit, and delete personal notes that are saved to a database. This project connects a React frontend with a Node.js backend for the first time.",
+          "what_you_will_build": "A fullstack notes application with a React frontend, a Node.js/Express backend, a MongoDB or PostgreSQL database, user authentication using JWT, and full CRUD operations for notes.",
+          "what_you_will_learn": [
+            "Connecting a React frontend to a backend API using Axios or Fetch",
+            "Implementing JWT-based authentication across both the frontend and backend",
+            "Persisting user data in a database and associating records with specific users",
+            "Deploying a fullstack application to a cloud platform"
+          ],
+          "skills_gained": ["React", "Node.js", "Express", "MongoDB / PostgreSQL", "JWT authentication"],
+          "trending_technologies": ["React", "Node.js", "Express", "MongoDB", "JWT", "Render / Railway"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "fs_b2",
+          "title": "Recipe Sharing Platform",
+          "tagline": "Create a platform where users can post, browse, and save their favourite recipes.",
+          "overview": "Build a community recipe sharing website where users can sign up, submit their own recipes with ingredients and instructions, browse recipes posted by others, and save their favourites. This project is a great introduction to fullstack CRUD with image uploads and user-generated content.",
+          "what_you_will_build": "A recipe platform with a React frontend, a backend API for recipes and users, image upload for recipe photos, a browsable recipe feed, and a saved recipes list per user.",
+          "what_you_will_learn": [
+            "Building forms with image upload functionality in React",
+            "Handling file uploads on the backend using Multer and storing images in the cloud",
+            "Designing database relationships between users and their recipes",
+            "Implementing a search and filter feature on the recipe feed"
+          ],
+          "skills_gained": ["React", "Node.js", "File uploads", "Database relationships", "REST API"],
+          "trending_technologies": ["React", "Node.js", "Express", "MongoDB", "Cloudinary", "Multer"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "fs_b3",
+          "title": "Expense Tracker with Charts",
+          "tagline": "Build a personal finance tracker that logs expenses and visualises spending patterns.",
+          "overview": "Help users take control of their finances by building a fullstack expense tracker. Users can log their daily expenses by category, view a history of transactions, and see visual breakdowns of their spending through charts — all powered by a real backend and database.",
+          "what_you_will_build": "A fullstack expense tracker with a React dashboard, category-based expense logging, a transaction history table, and interactive pie and bar charts visualising monthly spending.",
+          "what_you_will_learn": [
+            "Designing a clean data schema for transactions with categories, amounts, and dates",
+            "Aggregating and grouping database records to produce chart-ready data",
+            "Integrating a charting library (Recharts / Chart.js) into a React application",
+            "Building a fullstack app with user-specific data isolation"
+          ],
+          "skills_gained": ["React", "Node.js", "Data aggregation", "Recharts / Chart.js", "PostgreSQL"],
+          "trending_technologies": ["React", "Node.js", "PostgreSQL", "Recharts", "Prisma", "Vercel"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "fs_i1",
+          "title": "Job Board with Employer and Applicant Portals",
+          "tagline": "Build a fullstack job board where employers post listings and applicants submit their profiles.",
+          "overview": "Build a realistic job board platform with two distinct user roles — employers who post job listings and applicants who browse and apply for jobs. This project teaches you how to handle multi-role systems, file uploads (resumes), and complex database relationships in a fullstack context.",
+          "what_you_will_build": "A job board with separate employer and applicant dashboards, job listing creation and management, applicant profiles with resume upload, a job application workflow, and email notifications on application submission.",
+          "what_you_will_learn": [
+            "Implementing multi-role authentication and role-specific UI rendering in React",
+            "Building multi-step forms for job applications with file (resume) upload",
+            "Designing a relational schema for jobs, companies, and applications",
+            "Sending automated email notifications using a service like NodeMailer or SendGrid"
+          ],
+          "skills_gained": ["Role-based auth", "Multi-step forms", "File uploads", "Email services", "React + Node.js"],
+          "trending_technologies": ["React", "Node.js", "PostgreSQL", "Prisma", "SendGrid", "Cloudinary"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "fs_i2",
+          "title": "Real-Time Collaborative Whiteboard",
+          "tagline": "Build a shared digital whiteboard where multiple users can draw and collaborate in real time.",
+          "overview": "Collaboration tools are among the most technically exciting fullstack applications to build. In this project, you will create a shared whiteboard where multiple users can join the same canvas and draw, add text, or place shapes — with all changes appearing on everyone's screen instantly.",
+          "what_you_will_build": "A real-time collaborative whiteboard with a React canvas frontend, WebSocket-powered synchronisation, room-based sessions (unique links per whiteboard), and the ability to export the canvas as an image.",
+          "what_you_will_learn": [
+            "Using the HTML5 Canvas API for freehand drawing on the frontend",
+            "Synchronising canvas state across multiple connected clients using Socket.io",
+            "Managing room-based sessions so different groups have isolated whiteboards",
+            "Handling conflict resolution when multiple users draw simultaneously"
+          ],
+          "skills_gained": ["Canvas API", "Socket.io", "Real-time sync", "React", "Node.js"],
+          "trending_technologies": ["React", "Node.js", "Socket.io", "Canvas API", "MongoDB", "Docker"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "fs_i3",
+          "title": "Social Media App with Feed and Follow System",
+          "tagline": "Build a fullstack social media platform with posts, followers, likes, and a personalised feed.",
+          "overview": "Build a mini social media application where users can post updates, follow other users, like and comment on posts, and view a personalised feed of content from people they follow. This is one of the most comprehensive intermediate fullstack projects, touching almost every major concept you have learned.",
+          "what_you_will_build": "A social platform with user profiles, a post feed filtered by followed users, like and comment functionality, follow/unfollow system, real-time notifications, and image uploads for posts.",
+          "what_you_will_learn": [
+            "Designing complex relational database schemas with many-to-many relationships (followers)",
+            "Building a dynamic feed that filters content based on who a user follows",
+            "Implementing optimistic UI updates for a smoother like and follow experience",
+            "Adding real-time notifications using WebSockets when someone likes or follows"
+          ],
+          "skills_gained": ["React", "Node.js", "Complex SQL queries", "Real-time features", "Social graph logic"],
+          "trending_technologies": ["React", "Node.js", "PostgreSQL", "Prisma", "Socket.io", "Cloudinary"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "fs_a1",
+          "title": "SaaS Subscription Platform with Billing",
+          "tagline": "Build a complete SaaS application with tiered plans, Stripe subscriptions, and a customer dashboard.",
+          "overview": "Building a SaaS product from scratch is one of the most valuable skills a fullstack developer can demonstrate. In this project, you will create a complete SaaS application with user authentication, multiple subscription tiers (free, pro, enterprise), Stripe-powered billing, a customer portal, and usage-based feature gating.",
+          "what_you_will_build": "A fullstack SaaS app with a marketing landing page, user onboarding flow, Stripe subscription integration with webhooks, a billing dashboard, feature gating based on plan tier, and an admin panel to manage customers.",
+          "what_you_will_learn": [
+            "Integrating Stripe subscriptions, webhooks, and the customer portal into a fullstack app",
+            "Implementing feature gating that restricts access based on a user's subscription plan",
+            "Handling Stripe webhook events to update subscription status in real time",
+            "Building a multi-tenant architecture where each customer's data is isolated"
+          ],
+          "skills_gained": ["Stripe billing", "Webhooks", "Multi-tenancy", "Feature gating", "SaaS architecture"],
+          "trending_technologies": ["Next.js", "Node.js", "Stripe", "PostgreSQL", "Prisma", "Tailwind CSS", "Vercel"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "fs_a2",
+          "title": "AI-Powered Code Review Tool",
+          "tagline": "Build a fullstack tool where developers paste code and receive AI-generated review and suggestions.",
+          "overview": "Combine fullstack development with AI by building a code review assistant. Developers paste a block of code and select a programming language, and the application sends it to an AI model that returns a detailed code review — highlighting bugs, suggesting improvements, and explaining best practices.",
+          "what_you_will_build": "A fullstack application with a code editor interface (Monaco Editor), an AI-powered review engine using an LLM API, a review history saved per user, and a shareable review link feature.",
+          "what_you_will_learn": [
+            "Integrating a large language model API (OpenAI / Anthropic) into a backend service",
+            "Streaming AI responses to the frontend for a real-time typing effect",
+            "Embedding a professional code editor (Monaco) within a React application",
+            "Building a review history system that stores and retrieves past AI reviews per user"
+          ],
+          "skills_gained": ["LLM API integration", "Streaming responses", "Monaco Editor", "React", "Node.js"],
+          "trending_technologies": ["Next.js", "OpenAI API", "Monaco Editor", "PostgreSQL", "Prisma", "Vercel"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "fs_a3",
+          "title": "End-to-End Encrypted Messaging App",
+          "tagline": "Build a secure messaging app where messages are encrypted on the client before reaching the server.",
+          "overview": "Security and privacy are critical in modern applications. In this advanced project, you will build a messaging app where messages are encrypted on the sender's device and can only be decrypted by the intended recipient — the server never sees the plaintext. This project deeply challenges both your fullstack and cryptography skills.",
+          "what_you_will_build": "A secure messaging application with end-to-end encryption using the Web Crypto API, real-time message delivery via WebSockets, encrypted message storage in the database, and key exchange between users on first contact.",
+          "what_you_will_learn": [
+            "Implementing asymmetric key cryptography (RSA or Elliptic Curve) for key exchange in the browser",
+            "Encrypting message content on the client using the Web Crypto API before transmission",
+            "Designing a secure key management system where private keys never leave the user's device",
+            "Building a real-time message delivery system with WebSockets that handles encrypted payloads"
+          ],
+          "skills_gained": ["End-to-end encryption", "Web Crypto API", "WebSockets", "Cryptography fundamentals", "React + Node.js"],
+          "trending_technologies": ["React", "Node.js", "Web Crypto API", "Socket.io", "PostgreSQL", "Docker"]
+        }
+      ]
+    },
+    {
+      "domain_id": "data_engineering",
+      "domain_label": "Data Engineering",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "de_b1",
+          "title": "CSV Data Cleaner and Transformer",
+          "tagline": "Build a Python script that reads messy CSV files, cleans the data, and outputs a structured result.",
+          "overview": "Data is rarely clean when you receive it. In this beginner project, you will build a Python-based data cleaning pipeline that reads raw CSV files, identifies and handles missing values, removes duplicates, standardises formats, and outputs a clean, structured CSV ready for analysis.",
+          "what_you_will_build": "A Python data cleaning tool that accepts a raw CSV file as input, applies a configurable set of transformations (fill nulls, drop duplicates, rename columns, convert data types), and saves a clean output file with a summary report.",
+          "what_you_will_learn": [
+            "Loading and inspecting datasets using Pandas",
+            "Identifying and handling missing values, outliers, and duplicate records",
+            "Applying data type conversions and column standardisation at scale",
+            "Generating a basic data quality report summarising what was cleaned"
+          ],
+          "skills_gained": ["Python", "Pandas", "Data cleaning", "ETL basics", "File I/O"],
+          "trending_technologies": ["Python", "Pandas", "Jupyter Notebook", "CSV / Excel"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "de_b2",
+          "title": "Database Ingestion Pipeline",
+          "tagline": "Write a Python script that pulls data from a public API and loads it into a local database.",
+          "overview": "Practice the Extract and Load steps of the ETL process by building a pipeline that fetches data from a public API (such as weather, stock prices, or sports data) on a schedule and stores it in a structured database table for future querying and analysis.",
+          "what_you_will_build": "A Python script that calls a public REST API, parses the JSON response, maps it to a database schema, and inserts it into a PostgreSQL or SQLite database — scheduled to run every hour using a cron job.",
+          "what_you_will_learn": [
+            "Making authenticated API calls and parsing JSON responses in Python",
+            "Designing simple database schemas and creating tables using SQL",
+            "Using SQLAlchemy or psycopg2 to insert records into a database from Python",
+            "Scheduling a Python script to run automatically using cron or APScheduler"
+          ],
+          "skills_gained": ["Python", "API consumption", "SQL", "SQLAlchemy", "Scheduling"],
+          "trending_technologies": ["Python", "PostgreSQL", "SQLAlchemy", "APScheduler", "requests"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "de_b3",
+          "title": "SQL Analytics Report Generator",
+          "tagline": "Write complex SQL queries against a sample dataset and generate a structured analytics report.",
+          "overview": "Strong SQL is the single most important foundational skill for a data engineer. In this project, you will work with a realistic sample dataset (such as an e-commerce database) and write advanced SQL queries to extract business insights — then package those queries into a report generator.",
+          "what_you_will_build": "A Python script that runs a set of pre-defined SQL analytics queries (top products, monthly revenue, customer cohorts, churn analysis) against a PostgreSQL database and generates a formatted HTML or PDF report.",
+          "what_you_will_learn": [
+            "Writing advanced SQL including window functions, CTEs, and subqueries",
+            "Aggregating and grouping data to produce business-meaningful metrics",
+            "Using Python to execute SQL queries and format the results",
+            "Generating a readable HTML or PDF report from query results"
+          ],
+          "skills_gained": ["Advanced SQL", "Window functions", "CTEs", "Python", "Report generation"],
+          "trending_technologies": ["Python", "PostgreSQL", "Pandas", "Jinja2", "WeasyPrint"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "de_i1",
+          "title": "Automated ETL Pipeline with Apache Airflow",
+          "tagline": "Orchestrate a multi-step ETL workflow using Apache Airflow with scheduling and failure alerts.",
+          "overview": "Move from manual scripts to a production-grade orchestrated pipeline. In this project, you will build a multi-step ETL pipeline in Apache Airflow that extracts data from a source (API or file), transforms it with Python and Pandas, loads it into a data warehouse, and sends an alert if any step fails.",
+          "what_you_will_build": "An Airflow DAG with tasks for extraction, transformation, validation, and loading — scheduled to run daily, with email or Slack alerts on failure and a dashboard showing pipeline run history.",
+          "what_you_will_learn": [
+            "Defining Airflow DAGs, tasks, and dependencies using Python",
+            "Implementing retry logic and failure callbacks in Airflow tasks",
+            "Parameterising pipelines so they can handle different date ranges or data sources",
+            "Monitoring pipeline health using the Airflow web UI"
+          ],
+          "skills_gained": ["Apache Airflow", "DAG design", "ETL orchestration", "Pipeline monitoring", "Python"],
+          "trending_technologies": ["Apache Airflow", "Python", "PostgreSQL", "Docker", "AWS S3"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "de_i2",
+          "title": "Real-Time Streaming Pipeline with Kafka",
+          "tagline": "Build a streaming data pipeline that ingests, processes, and stores events in real time using Kafka.",
+          "overview": "Real-time data pipelines are essential in modern data platforms. In this project, you will build a streaming pipeline using Apache Kafka where a producer publishes events (such as user clickstream data or IoT sensor readings), a consumer processes them, and the results are stored in a database or data warehouse for real-time analytics.",
+          "what_you_will_build": "A Kafka-based streaming pipeline with a data producer (simulating live events), a consumer that processes and validates each event, and a storage layer that writes processed events to PostgreSQL — with a live dashboard showing event counts.",
+          "what_you_will_learn": [
+            "Setting up Kafka topics, producers, and consumers using Python (kafka-python)",
+            "Processing streaming messages with transformation and validation logic",
+            "Handling out-of-order events and implementing idempotent message processing",
+            "Writing streaming aggregations and storing results in a database"
+          ],
+          "skills_gained": ["Apache Kafka", "Stream processing", "Python", "Event-driven architecture", "PostgreSQL"],
+          "trending_technologies": ["Apache Kafka", "Python", "Docker", "PostgreSQL", "Grafana"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "de_i3",
+          "title": "Data Warehouse with dbt and Star Schema",
+          "tagline": "Build a data warehouse using dbt to transform raw data into analytics-ready star schema models.",
+          "overview": "dbt (data build tool) has become the standard for data transformation in modern data warehouses. In this project, you will ingest raw data into a cloud data warehouse and use dbt to model it into a clean star schema with dimension and fact tables — ready for BI tools like Tableau or Metabase to query.",
+          "what_you_will_build": "A dbt project with staging models, dimension tables (customers, products, dates), a central fact table (orders), dbt tests for data quality, and documentation generated automatically from model descriptions.",
+          "what_you_will_learn": [
+            "Modelling data in layers (staging, intermediate, mart) following dbt best practices",
+            "Designing a star schema with fact and dimension tables for analytical querying",
+            "Writing dbt tests to validate data freshness, uniqueness, and referential integrity",
+            "Generating and publishing automated dbt documentation for the entire data model"
+          ],
+          "skills_gained": ["dbt", "Data modelling", "Star schema design", "BigQuery / Snowflake", "Data quality testing"],
+          "trending_technologies": ["dbt", "BigQuery / Snowflake", "Python", "Airflow", "Metabase"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "de_a1",
+          "title": "Lakehouse Architecture with Delta Lake",
+          "tagline": "Build a modern data lakehouse combining the flexibility of a data lake with the reliability of a data warehouse.",
+          "overview": "The data lakehouse is the modern evolution of data architecture, combining the low-cost storage of a data lake with the ACID transaction guarantees of a data warehouse. In this project, you will build a lakehouse using Delta Lake on top of cloud object storage, with a full ingestion-to-query pipeline.",
+          "what_you_will_build": "A lakehouse pipeline that ingests raw data into an S3-based Delta Lake, applies bronze-silver-gold layer transformations using PySpark, supports time travel queries on historical data, and connects to a query engine like Athena or Presto for analytics.",
+          "what_you_will_learn": [
+            "Implementing the medallion architecture (bronze, silver, gold layers) in a lakehouse",
+            "Using Delta Lake for ACID transactions, schema enforcement, and data versioning",
+            "Running PySpark transformation jobs at scale on raw and structured data",
+            "Querying Delta Lake tables from an external analytics engine"
+          ],
+          "skills_gained": ["Delta Lake", "PySpark", "Lakehouse architecture", "AWS S3", "Medallion pattern"],
+          "trending_technologies": ["Delta Lake", "Apache Spark", "AWS S3", "Python", "Apache Hive", "Databricks"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "de_a2",
+          "title": "Data Observability and Monitoring Platform",
+          "tagline": "Build a system that monitors data pipeline health, detects anomalies, and alerts on data quality issues.",
+          "overview": "Production data pipelines need monitoring just like production software. In this advanced project, you will build a data observability platform that continuously monitors your pipelines and datasets — detecting schema changes, volume anomalies, null rate spikes, and freshness violations — and alerting your team before downstream consumers are impacted.",
+          "what_you_will_build": "A data monitoring system with automated checks for data freshness, row count trends, null rate tracking, schema drift detection, anomaly detection using statistical thresholds, and a dashboard showing pipeline health history with Slack/email alerting.",
+          "what_you_will_learn": [
+            "Designing statistical anomaly detection logic for data volume and quality metrics",
+            "Building automated schema drift detection that compares current and historical schemas",
+            "Integrating monitoring checks into an Airflow pipeline as quality gate tasks",
+            "Persisting and visualising monitoring history in a time-series friendly database"
+          ],
+          "skills_gained": ["Data observability", "Anomaly detection", "Airflow", "Python", "PostgreSQL", "Alerting systems"],
+          "trending_technologies": ["Python", "Apache Airflow", "PostgreSQL", "Great Expectations", "Grafana", "Slack API"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "de_a3",
+          "title": "Multi-Source Data Integration Platform",
+          "tagline": "Build a platform that ingests data from multiple heterogeneous sources and unifies it into a single queryable layer.",
+          "overview": "Enterprise data engineering involves pulling data from dozens of different sources — databases, APIs, SaaS tools, files — and unifying it. In this project, you will build a data integration platform (similar to Fivetran or Airbyte) that connects to multiple source types, extracts data on a schedule, and loads it into a centralised data warehouse.",
+          "what_you_will_build": "A data integration framework with pluggable connectors for different source types (REST API, PostgreSQL, CSV files, Google Sheets), a metadata-driven configuration system, incremental extraction logic, and a central data warehouse as the destination.",
+          "what_you_will_learn": [
+            "Building an extensible connector framework with a common interface for different data sources",
+            "Implementing incremental data extraction using watermark-based change tracking",
+            "Managing connector configurations, run history, and error logs in a metadata store",
+            "Handling schema evolution gracefully when source schemas change over time"
+          ],
+          "skills_gained": ["Connector framework design", "Incremental extraction", "Data integration", "Python", "PostgreSQL", "Airflow"],
+          "trending_technologies": ["Python", "Apache Airflow", "PostgreSQL", "dbt", "Docker", "BigQuery"]
+        }
+      ]
+    },
+    {
+      "domain_id": "machine_learning",
+      "domain_label": "Machine Learning",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "ml_b1",
+          "title": "House Price Prediction Model",
+          "tagline": "Train a regression model to predict house prices based on features like size, location, and age.",
+          "overview": "House price prediction is one of the classic introductory machine learning projects. Using a real dataset, you will explore the data, engineer features, train a regression model, evaluate its performance, and visualise the predictions versus actual values. This is the ideal project to solidify your end-to-end ML workflow.",
+          "what_you_will_build": "A trained regression model (Linear Regression / Random Forest) that predicts house prices, with a Jupyter notebook covering EDA, feature engineering, model training, evaluation metrics (RMSE, R²), and a feature importance chart.",
+          "what_you_will_learn": [
+            "Performing exploratory data analysis (EDA) to understand feature distributions and correlations",
+            "Engineering new features from raw data to improve model performance",
+            "Training and evaluating regression models using Scikit-learn",
+            "Interpreting model performance using metrics like RMSE, MAE, and R²"
+          ],
+          "skills_gained": ["Pandas", "Scikit-learn", "Regression", "Feature engineering", "EDA"],
+          "trending_technologies": ["Python", "Pandas", "Scikit-learn", "Matplotlib", "Jupyter Notebook"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "ml_b2",
+          "title": "Email Spam Classifier",
+          "tagline": "Build a text classification model that identifies whether an email is spam or not.",
+          "overview": "Text classification is one of the most widely applied machine learning techniques. In this project, you will build an email spam classifier using a labelled dataset of emails. You will process the raw text, convert it into numerical features, train a classification model, and evaluate how accurately it can detect spam.",
+          "what_you_will_build": "A spam classifier trained on the SMS Spam Collection or Enron dataset using TF-IDF text vectorisation and a Naive Bayes or Logistic Regression classifier — with a confusion matrix and classification report for evaluation.",
+          "what_you_will_learn": [
+            "Preprocessing raw text data (lowercasing, removing stopwords, stemming)",
+            "Converting text into numerical features using TF-IDF vectorisation",
+            "Training and comparing Naive Bayes and Logistic Regression classifiers",
+            "Evaluating classifier performance using precision, recall, F1-score, and confusion matrix"
+          ],
+          "skills_gained": ["NLP basics", "TF-IDF", "Text classification", "Scikit-learn", "Model evaluation"],
+          "trending_technologies": ["Python", "Scikit-learn", "NLTK", "Pandas", "Jupyter Notebook"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "ml_b3",
+          "title": "Customer Segmentation with K-Means Clustering",
+          "tagline": "Use unsupervised learning to group customers into meaningful segments based on their behaviour.",
+          "overview": "Clustering is a powerful unsupervised learning technique used widely in marketing and business analytics. In this project, you will apply K-Means clustering to a customer dataset to automatically discover distinct customer segments — which can then be used to tailor marketing strategies and product recommendations.",
+          "what_you_will_build": "A customer segmentation analysis using K-Means clustering on a retail dataset, with an elbow method chart to determine the optimal number of clusters, 2D/3D visualisations of clusters using PCA, and a business interpretation of each customer segment.",
+          "what_you_will_learn": [
+            "Scaling and normalising features before applying distance-based clustering algorithms",
+            "Using the elbow method and silhouette score to select the optimal number of clusters",
+            "Reducing dimensionality with PCA to visualise high-dimensional cluster results",
+            "Interpreting clusters in business terms to extract actionable insights"
+          ],
+          "skills_gained": ["K-Means clustering", "PCA", "Scikit-learn", "Data visualisation", "Unsupervised learning"],
+          "trending_technologies": ["Python", "Scikit-learn", "Pandas", "Matplotlib", "Seaborn", "Jupyter Notebook"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "ml_i1",
+          "title": "Image Classification with Convolutional Neural Networks",
+          "tagline": "Train a CNN from scratch to classify images into categories using TensorFlow or PyTorch.",
+          "overview": "Convolutional Neural Networks (CNNs) are the foundation of modern computer vision. In this project, you will build and train a CNN to classify images from a multi-class dataset — learning how convolutional layers, pooling, and fully-connected layers work together to extract visual features and make predictions.",
+          "what_you_will_build": "A CNN image classifier trained on CIFAR-10 or a custom dataset with data augmentation, training and validation accuracy/loss curves, a confusion matrix, and a simple inference script that classifies a new image provided by the user.",
+          "what_you_will_learn": [
+            "Designing CNN architectures with convolutional, pooling, and fully-connected layers",
+            "Applying data augmentation (flipping, rotation, cropping) to reduce overfitting",
+            "Monitoring training using accuracy and loss curves to detect overfitting early",
+            "Evaluating model performance on a held-out test set using a confusion matrix"
+          ],
+          "skills_gained": ["CNN", "PyTorch / TensorFlow", "Data augmentation", "Model evaluation", "Computer vision"],
+          "trending_technologies": ["Python", "PyTorch / TensorFlow", "torchvision", "Matplotlib", "Jupyter Notebook"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "ml_i2",
+          "title": "Time Series Forecasting for Stock Prices",
+          "tagline": "Build a forecasting model that predicts future stock prices using historical time series data.",
+          "overview": "Time series forecasting is one of the most in-demand ML skills in finance, supply chain, and operations. In this project, you will work with historical stock price data, perform time series analysis, and train forecasting models — from classical ARIMA to modern LSTM-based deep learning approaches.",
+          "what_you_will_build": "A stock price forecasting system with data collection (via Yahoo Finance API), time series decomposition and analysis, an ARIMA baseline model, an LSTM deep learning forecasting model, and a comparison chart of predicted vs actual prices.",
+          "what_you_will_learn": [
+            "Analysing time series properties such as trend, seasonality, and stationarity",
+            "Building an ARIMA model and selecting optimal parameters using AIC/BIC",
+            "Designing and training an LSTM network for sequence prediction",
+            "Evaluating forecast accuracy using MAE, RMSE, and MAPE metrics"
+          ],
+          "skills_gained": ["Time series analysis", "ARIMA", "LSTM", "PyTorch", "yfinance"],
+          "trending_technologies": ["Python", "PyTorch", "statsmodels", "yfinance", "Pandas", "Matplotlib"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "ml_i3",
+          "title": "Recommendation System",
+          "tagline": "Build a product or movie recommendation engine using collaborative filtering and matrix factorisation.",
+          "overview": "Recommendation systems power Netflix, Spotify, and Amazon. In this project, you will build a recommendation engine from scratch — starting with a content-based filter and progressing to collaborative filtering using matrix factorisation, giving users personalised recommendations based on their past behaviour and similarity to other users.",
+          "what_you_will_build": "A recommendation system trained on the MovieLens or a product review dataset, featuring a content-based recommender (TF-IDF on descriptions), a collaborative filter (user-item matrix), and a matrix factorisation model (SVD / ALS) — with a simple interface to get recommendations for any user or item.",
+          "what_you_will_learn": [
+            "Building content-based recommendations using item similarity scores",
+            "Constructing user-item interaction matrices and handling sparse data",
+            "Training a matrix factorisation model (SVD) using Scikit-learn or Surprise",
+            "Evaluating recommendations using precision@k and RMSE on held-out ratings"
+          ],
+          "skills_gained": ["Collaborative filtering", "Matrix factorisation", "SVD", "Scikit-learn", "Pandas"],
+          "trending_technologies": ["Python", "Scikit-learn", "Surprise library", "Pandas", "Jupyter Notebook"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "ml_a1",
+          "title": "End-to-End MLOps Pipeline",
+          "tagline": "Build a complete ML pipeline with automated training, versioning, deployment, and monitoring.",
+          "overview": "Building a model is only half the job — deploying and maintaining it in production is the other half. In this advanced project, you will build a full MLOps pipeline where model training is automated, experiments are tracked, the best model is deployed as an API, and its performance is monitored over time in production.",
+          "what_you_will_build": "A complete MLOps system with automated training pipelines, MLflow experiment tracking and model registry, a FastAPI-based model serving endpoint, a Docker container for deployment, and a Grafana dashboard monitoring prediction drift and latency.",
+          "what_you_will_learn": [
+            "Tracking experiments, parameters, and metrics using MLflow",
+            "Registering and versioning trained models in the MLflow Model Registry",
+            "Deploying a model as a REST API using FastAPI and containerising it with Docker",
+            "Monitoring prediction drift and data quality in production using statistical tests"
+          ],
+          "skills_gained": ["MLflow", "FastAPI", "Docker", "Model monitoring", "CI/CD for ML"],
+          "trending_technologies": ["Python", "MLflow", "FastAPI", "Docker", "Grafana", "PostgreSQL", "GitHub Actions"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "ml_a2",
+          "title": "Object Detection System with YOLO",
+          "tagline": "Build a real-time object detection system that identifies and localises multiple objects in images and video.",
+          "overview": "Object detection is one of the most exciting and commercially valuable applications of deep learning — used in autonomous vehicles, security systems, and medical imaging. In this project, you will fine-tune a YOLO model on a custom dataset and build a real-time detection system that runs on images, video files, and live webcam feeds.",
+          "what_you_will_build": "A custom object detection system fine-tuned with YOLOv8 on a labelled dataset of your choice, with inference scripts for image and video input, bounding box visualisation, confidence score thresholding, and a simple web interface for uploading images and viewing detections.",
+          "what_you_will_learn": [
+            "Annotating a custom image dataset using tools like Roboflow or LabelImg",
+            "Fine-tuning a pre-trained YOLOv8 model on a custom labelled dataset",
+            "Running and optimising inference for real-time video stream processing",
+            "Deploying the detection model as a web service with a file upload interface"
+          ],
+          "skills_gained": ["YOLOv8", "Object detection", "Transfer learning", "Computer vision", "FastAPI deployment"],
+          "trending_technologies": ["Python", "YOLOv8 (Ultralytics)", "OpenCV", "Roboflow", "FastAPI", "Docker"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "ml_a3",
+          "title": "Reinforcement Learning Agent for Game Playing",
+          "tagline": "Train an AI agent using deep reinforcement learning to master a game environment autonomously.",
+          "overview": "Reinforcement learning (RL) is the technique behind AlphaGo, OpenAI Five, and many robotics breakthroughs. In this advanced project, you will train a Deep Q-Network (DQN) or Proximal Policy Optimisation (PPO) agent to play a game environment from the OpenAI Gym — learning purely through trial, error, and reward signals.",
+          "what_you_will_build": "An RL agent trained to play a classic control or Atari game from OpenAI Gym, with a training loop that logs episode rewards, a reward curve visualisation showing learning progress, a video recording of the trained agent playing, and a comparison of different RL algorithms.",
+          "what_you_will_learn": [
+            "Implementing the Q-learning algorithm and extending it to Deep Q-Networks (DQN)",
+            "Using experience replay buffers and target networks to stabilise DQN training",
+            "Training a PPO agent using the Stable Baselines 3 library and tuning hyperparameters",
+            "Evaluating agent performance through reward curves and qualitative gameplay analysis"
+          ],
+          "skills_gained": ["Reinforcement learning", "DQN", "PPO", "OpenAI Gym", "PyTorch"],
+          "trending_technologies": ["Python", "PyTorch", "OpenAI Gym / Gymnasium", "Stable Baselines 3", "Matplotlib"]
+        }
+      ]
+    },
+    {
+      "domain_id": "data_science",
+      "domain_label": "Data Science",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "ds_b1",
+          "title": "Exploratory Data Analysis on a Public Dataset",
+          "tagline": "Perform a thorough EDA on a real-world dataset and present your findings with visualisations.",
+          "overview": "Every data science project starts with understanding the data. In this foundational project, you will choose a rich public dataset (such as a COVID-19 dataset, the Titanic dataset, or global temperature records), explore it thoroughly using Python, and communicate your findings through clear, well-labelled visualisations.",
+          "what_you_will_build": "A Jupyter notebook containing a structured EDA with data shape and type inspection, distribution plots, correlation heatmaps, outlier detection, missing value analysis, and a written summary of the key insights discovered.",
+          "what_you_will_learn": [
+            "Loading and inspecting datasets using Pandas to understand their structure",
+            "Visualising distributions, trends, and correlations using Matplotlib and Seaborn",
+            "Identifying and documenting missing values, outliers, and data quality issues",
+            "Drawing and communicating insights clearly in written and visual form"
+          ],
+          "skills_gained": ["EDA", "Pandas", "Seaborn", "Matplotlib", "Statistical thinking"],
+          "trending_technologies": ["Python", "Pandas", "Seaborn", "Matplotlib", "Jupyter Notebook"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "ds_b2",
+          "title": "Sales Performance Dashboard with Tableau or Power BI",
+          "tagline": "Connect a sales dataset to a BI tool and build an interactive business dashboard.",
+          "overview": "Business intelligence dashboards are among the most requested deliverables from data scientists. In this project, you will connect a sample sales dataset to Tableau or Power BI, build multiple chart types, and design an executive-level dashboard that answers key business questions at a glance.",
+          "what_you_will_build": "An interactive sales dashboard featuring monthly revenue trends, top-performing products and regions, sales rep performance tables, a KPI summary row, and date-range filters — all in Tableau Public or Power BI Desktop.",
+          "what_you_will_learn": [
+            "Connecting data sources and building calculated fields in Tableau or Power BI",
+            "Designing clear, uncluttered dashboards following data visualisation best practices",
+            "Using filters, slicers, and drill-through to make dashboards interactive",
+            "Selecting the right chart type for each business question"
+          ],
+          "skills_gained": ["Tableau / Power BI", "Data visualisation", "Dashboard design", "Business metrics"],
+          "trending_technologies": ["Tableau Public", "Power BI Desktop", "Excel / CSV", "Google Sheets"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "ds_b3",
+          "title": "Statistical Hypothesis Testing Analysis",
+          "tagline": "Apply statistical tests to a real dataset to answer data-driven business or scientific questions.",
+          "overview": "Data scientists are expected to rigorously test hypotheses using statistics. In this project, you will work with a real dataset and use statistical hypothesis testing to answer meaningful questions — such as whether a product change improved conversion, or whether two groups have significantly different outcomes.",
+          "what_you_will_build": "A Jupyter notebook that states clear hypotheses, selects appropriate tests (t-test, chi-square, ANOVA, Mann-Whitney U), performs them using SciPy, interprets p-values and confidence intervals, and presents conclusions in plain language for a non-technical audience.",
+          "what_you_will_learn": [
+            "Choosing the correct statistical test based on the data type and research question",
+            "Performing t-tests, chi-square tests, and ANOVA using SciPy",
+            "Interpreting p-values and confidence intervals and communicating findings clearly",
+            "Understanding Type I and Type II errors and statistical power"
+          ],
+          "skills_gained": ["Statistics", "Hypothesis testing", "SciPy", "Python", "Data storytelling"],
+          "trending_technologies": ["Python", "SciPy", "Pandas", "Matplotlib", "Jupyter Notebook"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "ds_i1",
+          "title": "Churn Prediction and Business Impact Analysis",
+          "tagline": "Predict which customers are likely to leave and quantify the revenue impact of retaining them.",
+          "overview": "Customer churn prediction is one of the most commercially impactful data science projects. In this project, you will build a classification model that predicts which customers are at risk of churning, identify the most important churn drivers, and translate the model's output into estimated revenue saved — making your analysis directly actionable for business stakeholders.",
+          "what_you_will_build": "A churn prediction pipeline with EDA, feature engineering, a trained classifier (XGBoost / Logistic Regression), SHAP explainability charts showing the top churn drivers, and a business impact report estimating revenue recovered if high-risk customers are targeted.",
+          "what_you_will_learn": [
+            "Engineering features from raw customer behavioural data (tenure, usage frequency, support tickets)",
+            "Handling class imbalance using SMOTE or class weighting in a classification model",
+            "Using SHAP values to explain model predictions and identify key churn drivers",
+            "Translating model predictions into a business impact analysis with revenue estimates"
+          ],
+          "skills_gained": ["XGBoost", "SHAP explainability", "Class imbalance handling", "Business translation", "Scikit-learn"],
+          "trending_technologies": ["Python", "Scikit-learn", "XGBoost", "SHAP", "Pandas", "Plotly"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "ds_i2",
+          "title": "A/B Testing Analysis Platform",
+          "tagline": "Build a framework for designing, running, and analysing A/B experiments with statistical rigour.",
+          "overview": "A/B testing is the backbone of data-driven product development at companies like Google, Netflix, and Airbnb. In this project, you will build an end-to-end A/B testing analysis framework — from experiment design and sample size calculation to results analysis and a decision recommendation report.",
+          "what_you_will_build": "An A/B testing analysis tool that accepts experiment data as input, performs sample size and statistical power calculations, runs the appropriate significance tests, visualises the uplift between control and treatment, and generates a decision report with confidence intervals.",
+          "what_you_will_learn": [
+            "Calculating required sample sizes using statistical power analysis before running experiments",
+            "Selecting and applying the correct significance tests for conversion rate experiments",
+            "Identifying and correcting for common experiment pitfalls like novelty effects and Simpson's paradox",
+            "Communicating experiment results to non-technical stakeholders with clear visualisations"
+          ],
+          "skills_gained": ["A/B testing", "Statistical power", "Bayesian vs frequentist testing", "Python", "SciPy"],
+          "trending_technologies": ["Python", "SciPy", "Pandas", "Plotly", "Streamlit", "Jupyter Notebook"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "ds_i3",
+          "title": "Geospatial Data Analysis and Mapping",
+          "tagline": "Analyse location-based data and build interactive maps that reveal spatial patterns and insights.",
+          "overview": "Geospatial analysis is a powerful and visually compelling data science specialisation used in urban planning, logistics, public health, and marketing. In this project, you will work with a location-based dataset — such as Airbnb listings, crime records, or store locations — and produce interactive maps that uncover spatial patterns.",
+          "what_you_will_build": "A geospatial analysis project with an interactive choropleth map, a heatmap of event density, cluster analysis of locations, distance-based analysis (e.g. proximity to landmarks), and a Streamlit or Folium-based interactive dashboard.",
+          "what_you_will_learn": [
+            "Loading and manipulating geospatial data using GeoPandas",
+            "Creating interactive maps and heatmaps using Folium or Plotly",
+            "Performing spatial joins to combine datasets based on geographic overlap",
+            "Deriving insights from location data such as hotspot analysis and proximity scoring"
+          ],
+          "skills_gained": ["GeoPandas", "Folium", "Geospatial analysis", "Plotly", "Streamlit"],
+          "trending_technologies": ["Python", "GeoPandas", "Folium", "Plotly", "Streamlit", "OpenStreetMap"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "ds_a1",
+          "title": "End-to-End Data Science Product with Streamlit",
+          "tagline": "Package your data science model into a polished, interactive web application for end users.",
+          "overview": "Great data science work only creates value when it is accessible to decision-makers. In this advanced project, you will take a trained machine learning model and wrap it in a professional Streamlit web application — allowing non-technical users to interact with the model, input their own data, and receive predictions with explanations.",
+          "what_you_will_build": "A Streamlit application featuring an interactive prediction interface, real-time model inference, SHAP-based prediction explanations visualised for each user input, a data exploration tab for uploading and analysing custom datasets, and a deployment to Streamlit Community Cloud.",
+          "what_you_will_learn": [
+            "Building multi-page Streamlit applications with a professional UI layout",
+            "Loading a pre-trained model and running real-time inference from user input",
+            "Generating per-prediction SHAP explanation charts within a Streamlit app",
+            "Deploying a Streamlit application to the cloud and making it publicly accessible"
+          ],
+          "skills_gained": ["Streamlit", "Model deployment", "SHAP", "Python", "Cloud deployment"],
+          "trending_technologies": ["Python", "Streamlit", "Scikit-learn / XGBoost", "SHAP", "Plotly", "Streamlit Cloud"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "ds_a2",
+          "title": "Causal Inference Analysis",
+          "tagline": "Go beyond correlation and use causal inference methods to establish true cause-and-effect relationships in data.",
+          "overview": "The most sophisticated data scientists understand the difference between correlation and causation — and have the tools to establish the latter. In this advanced project, you will apply causal inference techniques to a real-world dataset to answer questions like 'Did this intervention actually cause the improvement?' using methods that go beyond standard regression.",
+          "what_you_will_build": "A causal analysis project using Difference-in-Differences, Propensity Score Matching, or Instrumental Variables to evaluate the effect of a real intervention (policy change, product launch, marketing campaign) — with a formal results report following academic standards.",
+          "what_you_will_learn": [
+            "Understanding the fundamental problem of causal inference and the potential outcomes framework",
+            "Applying Difference-in-Differences analysis to estimate treatment effects from observational data",
+            "Using Propensity Score Matching to control for confounding variables",
+            "Presenting causal findings with appropriate uncertainty quantification and sensitivity analysis"
+          ],
+          "skills_gained": ["Causal inference", "DiD", "Propensity Score Matching", "Python", "DoWhy / EconML"],
+          "trending_technologies": ["Python", "DoWhy", "EconML", "Pandas", "Statsmodels", "Jupyter Notebook"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "ds_a3",
+          "title": "Automated Data Science Pipeline (AutoML)",
+          "tagline": "Build a system that automatically preprocesses data, selects models, tunes hyperparameters, and serves the best result.",
+          "overview": "AutoML systems automate the most repetitive and time-consuming parts of the data science workflow. In this advanced project, you will build your own AutoML pipeline that accepts a labelled dataset, automatically identifies the problem type, runs preprocessing, trains multiple models in parallel, performs hyperparameter tuning, and returns the best-performing model — ready for deployment.",
+          "what_you_will_build": "A Python AutoML framework that handles automatic problem type detection, preprocessing (imputation, encoding, scaling), parallel model training (Logistic Regression, Random Forest, XGBoost, LightGBM), Bayesian hyperparameter optimisation, ensemble stacking, and a structured results report.",
+          "what_you_will_learn": [
+            "Designing a modular, extensible pipeline using Scikit-learn Pipelines and custom transformers",
+            "Implementing Bayesian hyperparameter optimisation using Optuna or Hyperopt",
+            "Running model training jobs in parallel using joblib for efficiency",
+            "Stacking multiple models into an ensemble and evaluating the improvement over individual models"
+          ],
+          "skills_gained": ["AutoML", "Hyperparameter optimisation", "Ensemble methods", "Optuna", "Scikit-learn Pipelines"],
+          "trending_technologies": ["Python", "Scikit-learn", "Optuna", "XGBoost", "LightGBM", "FLAML / Auto-sklearn"]
+        }
+      ]
+    },
+    {
+      "domain_id": "generative_ai",
+      "domain_label": "Generative AI",
+      "projects": [
+        {
+          "level": "Basic",
+          "level_id": "genai_b1",
+          "title": "AI-Powered Chatbot with Personality",
+          "tagline": "Build a custom chatbot using an LLM API with a defined personality, tone, and topic focus.",
+          "overview": "Your first generative AI project — building a conversational chatbot powered by a large language model. You will use an LLM API (OpenAI or Anthropic) and craft a system prompt that gives your chatbot a specific personality, area of expertise, and conversational style. This introduces you to the fundamentals of prompt engineering.",
+          "what_you_will_build": "A web-based chatbot with a custom persona (e.g. a career coach, a cooking assistant, or a study buddy), a conversation history that maintains context across messages, and a clean chat UI built with React or Streamlit.",
+          "what_you_will_learn": [
+            "Making API calls to an LLM (OpenAI / Anthropic) from a Python or JavaScript backend",
+            "Crafting effective system prompts to define chatbot persona, tone, and constraints",
+            "Maintaining multi-turn conversation history and passing it with each API request",
+            "Building a clean, responsive chat interface that displays messages in real time"
+          ],
+          "skills_gained": ["LLM API integration", "Prompt engineering", "Conversation history management", "React / Streamlit"],
+          "trending_technologies": ["OpenAI API / Anthropic API", "Python", "Streamlit / React", "FastAPI"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "genai_b2",
+          "title": "AI Text Summariser and Rewriter",
+          "tagline": "Build a tool that summarises long articles and rewrites content in different tones using an LLM.",
+          "overview": "One of the most practical applications of generative AI is transforming existing text. In this project, you will build a tool that accepts long-form content (articles, essays, reports) and uses an LLM to produce concise summaries, rewrite the text in a different tone (formal, casual, simplified), or translate it into bullet points.",
+          "what_you_will_build": "A text transformation web app where users paste or upload text, choose an output format (summary, bullet points, simplified version, tone rewrite), and receive the AI-generated output — with a comparison view showing the original and transformed text side by side.",
+          "what_you_will_learn": [
+            "Designing prompts for specific text transformation tasks (summarise, simplify, rewrite)",
+            "Handling long input text by chunking it before sending to the LLM API",
+            "Building a multi-mode interface that allows users to switch between transformation types",
+            "Measuring and displaying readability scores before and after transformation"
+          ],
+          "skills_gained": ["Prompt design", "Text processing", "LLM API", "Chunking strategies", "Streamlit / React"],
+          "trending_technologies": ["OpenAI API", "Python", "Streamlit", "LangChain", "tiktoken"]
+        },
+        {
+          "level": "Basic",
+          "level_id": "genai_b3",
+          "title": "AI Image Description and Tagging Tool",
+          "tagline": "Build an app that uses a multimodal AI model to describe images and generate relevant tags automatically.",
+          "overview": "Multimodal AI models can understand both text and images — opening up a new class of applications. In this beginner project, you will build a tool where users upload an image and the AI generates a detailed description, a set of relevant tags, and an alt-text suggestion for accessibility — using a vision-capable LLM.",
+          "what_you_will_build": "A web app where users upload an image and receive an AI-generated natural language description, a list of descriptive tags, a suggested alt-text for accessibility, and optionally a fun creative caption — all powered by a multimodal model.",
+          "what_you_will_learn": [
+            "Sending images to a multimodal LLM API (OpenAI Vision / Claude) as base64 or URL",
+            "Prompting a vision model to produce structured outputs (description, tags, alt-text)",
+            "Handling image uploads and preprocessing on the backend before API submission",
+            "Displaying AI-generated image metadata in a clean, organised UI"
+          ],
+          "skills_gained": ["Multimodal AI", "Vision API", "Image preprocessing", "Prompt design", "Python"],
+          "trending_technologies": ["OpenAI GPT-4o Vision / Claude", "Python", "Streamlit", "Pillow", "FastAPI"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "genai_i1",
+          "title": "RAG-Based Document Q&A System",
+          "tagline": "Build a system that lets users ask natural language questions about their own documents using RAG.",
+          "overview": "Retrieval-Augmented Generation (RAG) is one of the most widely deployed GenAI patterns in production. In this project, you will build a document question-answering system where users upload PDFs or text files, and they can then ask any question about the content — with the AI grounding its answers in the actual document text.",
+          "what_you_will_build": "A RAG-powered Q&A application that ingests uploaded documents (PDF / TXT), splits them into chunks, embeds them into a vector database (Pinecone or Chroma), retrieves the most relevant chunks for each user query, and passes them as context to an LLM to generate a grounded answer with source citations.",
+          "what_you_will_learn": [
+            "Chunking and embedding documents using OpenAI Embeddings or open-source models",
+            "Storing and querying document embeddings using a vector database (Chroma / Pinecone)",
+            "Building a retrieval pipeline that fetches the most semantically relevant chunks per query",
+            "Prompting an LLM to answer questions using only the retrieved context — with source citations"
+          ],
+          "skills_gained": ["RAG", "Vector databases", "LangChain / LlamaIndex", "Embeddings", "Document processing"],
+          "trending_technologies": ["LangChain", "OpenAI API", "ChromaDB / Pinecone", "Python", "Streamlit", "PyMuPDF"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "genai_i2",
+          "title": "AI-Powered Code Assistant",
+          "tagline": "Build a developer tool that explains, debugs, and generates code using a large language model.",
+          "overview": "AI coding assistants are transforming software development. In this project, you will build your own AI code assistant — a tool where developers can paste code to get an explanation, submit an error message to get a debug suggestion, or describe a function in plain English and receive working code in return.",
+          "what_you_will_build": "A developer-focused AI tool with three modes: Code Explainer (paste code, get a plain English breakdown), Bug Fixer (paste code and error, get a corrected version with explanation), and Code Generator (describe a function, get working code) — with syntax highlighting and a copy button.",
+          "what_you_will_learn": [
+            "Designing mode-specific prompts that produce reliable, structured code outputs from an LLM",
+            "Parsing and displaying code responses with syntax highlighting using a library like Prism.js",
+            "Streaming LLM responses to the UI so code appears progressively rather than all at once",
+            "Implementing conversation context so users can ask follow-up questions about the code"
+          ],
+          "skills_gained": ["LLM API", "Prompt engineering for code", "Streaming responses", "React / Streamlit", "Syntax highlighting"],
+          "trending_technologies": ["OpenAI API / Anthropic API", "React", "Node.js", "Monaco Editor", "Prism.js"]
+        },
+        {
+          "level": "Intermediate",
+          "level_id": "genai_i3",
+          "title": "Fine-Tuned Sentiment and Tone Classifier",
+          "tagline": "Fine-tune an open-source language model on a custom dataset to classify sentiment and tone in text.",
+          "overview": "While pre-trained models work well for general tasks, fine-tuning them on domain-specific data produces significantly better results for specialised use cases. In this project, you will collect or use a labelled dataset of text samples, fine-tune a small open-source language model using LoRA, and deploy it as a classification API.",
+          "what_you_will_build": "A fine-tuned text classifier built on a small open-source base model (DistilBERT or LLaMA 3B) using LoRA/PEFT, trained to classify text into sentiment or tone categories — deployed as a FastAPI endpoint and tested against the base model to measure the improvement.",
+          "what_you_will_learn": [
+            "Preparing and formatting a labelled dataset for fine-tuning using the Hugging Face datasets library",
+            "Applying LoRA (Low-Rank Adaptation) to fine-tune a large model with limited compute",
+            "Evaluating the fine-tuned model against a base model baseline on a held-out test set",
+            "Exporting and serving the fine-tuned model as a REST API with FastAPI"
+          ],
+          "skills_gained": ["Fine-tuning", "LoRA / PEFT", "Hugging Face Transformers", "FastAPI", "Model evaluation"],
+          "trending_technologies": ["Hugging Face", "PEFT / LoRA", "Python", "FastAPI", "Google Colab / Kaggle GPU"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "genai_a1",
+          "title": "Autonomous AI Agent with Tool Use",
+          "tagline": "Build an AI agent that can plan multi-step tasks, use tools like web search and code execution, and deliver results autonomously.",
+          "overview": "AI agents represent the frontier of generative AI — systems that can break down a complex goal, decide which tools to use, execute actions, observe results, and iterate until the task is complete. In this advanced project, you will build a fully autonomous agent that can browse the web, write and execute code, and manage files to accomplish user-defined goals.",
+          "what_you_will_build": "An autonomous AI agent built with LangChain or LlamaIndex, equipped with tools for web search (SerpAPI), Python code execution (E2B sandbox), file read/write, and memory — capable of completing multi-step research, analysis, and reporting tasks end to end.",
+          "what_you_will_learn": [
+            "Designing a ReAct (Reason + Act) agent loop that alternates between thinking and tool use",
+            "Defining custom tools for the agent and handling tool outputs back into the reasoning loop",
+            "Implementing short-term (conversation) and long-term (vector store) agent memory",
+            "Managing agent safety through output validation, sandboxed code execution, and guardrails"
+          ],
+          "skills_gained": ["AI agents", "ReAct framework", "LangChain", "Tool calling", "Memory systems", "Guardrails"],
+          "trending_technologies": ["LangChain / LlamaIndex", "OpenAI API", "SerpAPI", "E2B", "Python", "Chroma / Pinecone"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "genai_a2",
+          "title": "Multimodal Content Generation Platform",
+          "tagline": "Build a platform that generates coordinated text, images, and audio from a single user prompt.",
+          "overview": "Generative AI is not limited to text — cutting-edge applications combine text, image, and audio generation in a single coordinated workflow. In this advanced project, you will build a content generation platform where a user enters a topic or brief and the system generates a complete package: written content, matching AI-generated images, and a text-to-speech audio version.",
+          "what_you_will_build": "A multimodal content generation platform where users enter a prompt and receive generated article text (GPT-4), matching hero images (DALL-E 3 / Stable Diffusion), an audio narration (OpenAI TTS or ElevenLabs), and a download option for the complete content package.",
+          "what_you_will_learn": [
+            "Orchestrating multiple AI API calls (text, image, audio) in a coordinated sequential pipeline",
+            "Designing prompts for image generation that are derived from and consistent with the generated text",
+            "Handling asynchronous API calls to generate text, images, and audio in parallel",
+            "Building a polished content preview and export interface with download functionality"
+          ],
+          "skills_gained": ["Multimodal AI", "Image generation", "Text-to-speech", "Pipeline orchestration", "Async Python"],
+          "trending_technologies": ["OpenAI GPT-4o", "DALL-E 3", "ElevenLabs / OpenAI TTS", "Python", "FastAPI", "React"]
+        },
+        {
+          "level": "Advanced",
+          "level_id": "genai_a3",
+          "title": "Production LLM Application with Evaluation and Guardrails",
+          "tagline": "Build and deploy a production-grade LLM application with safety guardrails, evaluation pipelines, and observability.",
+          "overview": "Moving an LLM application from prototype to production requires much more than a working demo. In this advanced project, you will take a GenAI application and harden it for production — implementing input and output guardrails, building an automated evaluation pipeline, adding observability and tracing, and setting up monitoring for hallucination and toxicity rates.",
+          "what_you_will_build": "A production-ready LLM application featuring input sanitisation and injection detection, output guardrails (toxicity, PII detection, hallucination checks), an LLM evaluation suite with automated test cases using Ragas or DeepEval, LangSmith or Langfuse tracing for every request, and a monitoring dashboard with alerts.",
+          "what_you_will_learn": [
+            "Implementing prompt injection detection and input sanitisation before each LLM call",
+            "Building output validation pipelines that check for toxicity, PII, and off-topic responses",
+            "Setting up automated LLM evaluation using frameworks like Ragas or DeepEval",
+            "Instrumenting every LLM call with tracing using LangSmith or Langfuse for debugging and auditing"
+          ],
+          "skills_gained": ["LLM guardrails", "LLM evaluation", "Observability", "LangSmith / Langfuse", "Ragas / DeepEval", "Responsible AI"],
+          "trending_technologies": ["LangChain", "LangSmith / Langfuse", "Ragas", "Presidio (PII)", "OpenAI API", "FastAPI", "Docker"]
+        }
+      ]
+    }
+  ]
+}

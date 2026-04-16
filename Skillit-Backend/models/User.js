@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  savedInternships: { type: [String], default: [] },
+  savedHackathons: { type: [String], default: [] },
+  completedNodes: { type: [String], default: [] },
+  domain: { type: String, default: "Not Set" }
 });
 
 module.exports = mongoose.model("User", userSchema);

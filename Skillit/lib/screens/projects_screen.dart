@@ -4,7 +4,9 @@ import '../services/api_service.dart';
 
 class ProjectsScreen extends StatefulWidget {
   final bool hideAppBar;
-  const ProjectsScreen({super.key, this.hideAppBar = false});
+  final String? initialDomainId;
+  final String? initialProjectTitle;
+  const ProjectsScreen({super.key, this.hideAppBar = false, this.initialDomainId, this.initialProjectTitle});
 
   @override
   State<ProjectsScreen> createState() => _ProjectsScreenState();
@@ -52,6 +54,21 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           }
           _isLoading = false;
         });
+
+        if (widget.initialDomainId != null) {
+          final domain = _allDomains.firstWhere(
+            (d) => d['domain_id'] == widget.initialDomainId,
+            orElse: () => null,
+          );
+          if (domain != null) {
+            setState(() {
+              _selectedDomain = domain;
+              if (widget.initialProjectTitle != null) {
+                _expandedProjectId = widget.initialProjectTitle; // Or a specific ID if available
+              }
+            });
+          }
+        }
       }
     } catch (e) {
       print("❌ Error loading projects: $e");
@@ -66,31 +83,38 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final body = _isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : _errorMessage.isNotEmpty
+            ? _buildErrorState()
+            : AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: _selectedDomain == null
+                    ? _buildDomainSelectionGrid()
+                    : _buildProjectExplorer(),
+              );
+
+    if (widget.hideAppBar) {
+      return Material(
+        color: AppColors.background,
+        child: body,
+      );
+    }
+
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: widget.hideAppBar
-          ? null
-          : AppBar(
-              title: const Text("Project Ideas"),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: _selectedDomain != null
-                  ? IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => setState(() => _selectedDomain = null),
-                    )
-                  : null,
-            ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _errorMessage.isNotEmpty
-              ? _buildErrorState()
-              : AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: _selectedDomain == null
-                      ? _buildDomainSelectionGrid()
-                      : _buildProjectExplorer(),
-                ),
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text("Project Ideas"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: _selectedDomain != null
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => setState(() => _selectedDomain = null),
+              )
+            : null,
+      ),
+      body: body,
     );
   }
 
@@ -146,7 +170,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 1.1,
+              childAspectRatio: 1.0, // Increased height to prevent overflow
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
             ),
@@ -199,11 +223,15 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Text(
               domain['domain_label'] ?? "Unknown",
               textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 4),
             Text(
               "${(domain['projects'] as List).length} Projects",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
             ),
           ],
@@ -286,7 +314,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   Widget _buildDifficultyTabs() {
     return Container(
-      height: 50,
+      constraints: const BoxConstraints(minHeight: 50),
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

@@ -1,18 +1,26 @@
-const fs = require('fs');
-const path = require('path');
+const Roadmap = require('../models/Roadmap');
 
-exports.getRoadmaps = (req, res) => {
+exports.getRoadmaps = async (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '../data/roadmaps.json');
+    const roadmaps = await Roadmap.find();
     
-    // Check if file exists first to provide better error
-    if (!fs.existsSync(dataPath)) {
-      console.error("❌ Roadmap file not found at:", dataPath);
-      return res.status(404).json({ error: true, message: "Roadmap data file missing" });
-    }
+    // Transform back to the structure the app expects { app, version, fields }
+    const response = {
+      app: "Skillit",
+      version: "1.0.0",
+      fields: roadmaps.map(r => ({
+        id: r.roadmapId,
+        label: r.label,
+        badge: r.badge,
+        tagline: r.tagline,
+        content: r.content,
+        roadmap: r.roadmapSteps,
+        resources: r.resources
+      }))
+    };
 
-    res.sendFile(dataPath);
-    console.log("✅ Roadmaps delivered successfully");
+    res.json(response);
+    console.log("✅ Roadmaps delivered from DB");
   } catch (err) {
     console.error("❌ Error delivering roadmaps:", err);
     res.status(500).json({ error: true, message: "Internal Server Error" });

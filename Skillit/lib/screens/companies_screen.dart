@@ -48,7 +48,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text("Corporate Directory"),
         backgroundColor: Colors.transparent,
@@ -109,7 +109,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
       padding: const EdgeInsets.all(16.0),
       child: TextField(
         onChanged: _filterCompanies,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: AppColors.textPrimary),
         decoration: InputDecoration(
           hintText: "Search MNCs, Startups, Industries...",
           hintStyle: const TextStyle(color: AppColors.textMuted),
@@ -144,7 +144,8 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.border),
+              border: Border.all(color: AppColors.border.withOpacity(0.5)),
+              boxShadow: AppColors.shadow,
             ),
             child: Row(
               children: [
@@ -152,7 +153,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.background,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: ClipRRect(
@@ -174,7 +175,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       Text(

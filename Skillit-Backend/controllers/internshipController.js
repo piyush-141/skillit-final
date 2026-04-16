@@ -389,10 +389,19 @@ const realisticInternships = [
   },
 ];
 
+const Internship = require('../models/Internship');
+
+exports.realisticInternships = realisticInternships;
+
 exports.getInternships = async (req, res) => {
   try {
-    console.log(`✅ Serving ${realisticInternships.length} curated internships`);
-    res.json(realisticInternships);
+    const internships = await Internship.find();
+    if (internships.length === 0) {
+      console.log(`⚠️ DB Empty, serving ${realisticInternships.length} curated internships`);
+      return res.json(realisticInternships);
+    }
+    console.log(`✅ Serving ${internships.length} internships from DB`);
+    res.json(internships);
   } catch (err) {
     console.error("❌ Error:", err.message);
     res.status(500).json({ msg: "Error fetching internships" });

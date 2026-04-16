@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import '../main.dart'; // for AppColors
 import '../services/bookmark_service.dart';
+import '../services/auth_service.dart';
 import 'saved_items_screen.dart';
+import '../services/api_service.dart';
 
-class ProfileScreen extends StatelessWidget {
+import 'edit_profile_screen.dart';
+
+class ProfileScreen extends StatefulWidget {
   final String userName;
   final String userEmail;
 
@@ -14,6 +18,67 @@ class ProfileScreen extends StatelessWidget {
   });
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late String _currentName;
+  late String _currentDomain;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentName = widget.userName;
+    _currentDomain = "Not Set";
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    final info = await AuthService.getUserInfo();
+    setState(() {
+      _currentName = info['name'] ?? widget.userName;
+      _currentDomain = info['domain'] ?? "Not Set";
+    });
+
+    // Also try fetching from API for fresh data
+    try {
+      final fresh = await ApiService.getUserProfile();
+      if (fresh.containsKey('name')) {
+        await AuthService.updateUserLocalData(
+          name: fresh['name'],
+          domain: fresh['domain'],
+        );
+        if (mounted) {
+          setState(() {
+            _currentName = fresh['name'];
+            _currentDomain = fresh['domain'] ?? "Not Set";
+          });
+        }
+      }
+    } catch (e) {
+      print("Error refreshing profile: $e");
+    }
+  }
+
+  void _navigateToEdit() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfileScreen(
+          currentName: _currentName,
+          currentEmail: widget.userEmail,
+          currentDomain: _currentDomain,
+        ),
+      ),
+    );
+
+    if (result == true) {
+      _loadProfile();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -22,24 +87,31 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings_outlined, size: 22),
-            onPressed: () {},
+            icon: const Icon(Icons.refresh_rounded, size: 22),
+            onPressed: _loadProfile,
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            _buildProfileHeader(context),
-            const SizedBox(height: 32),
-            _buildStatsRow(),
-            const SizedBox(height: 32),
-            _buildMenuSection(context),
-            const SizedBox(height: 100),
-          ],
-        ),
-      ),
+      body: _isLoading 
+        ? const Center(child: CircularProgressIndicator())
+        : RefreshIndicator(
+            onRefresh: _loadProfile,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  _buildProfileHeader(context),
+                  const SizedBox(height: 24),
+                  _buildDomainSection(),
+                  const SizedBox(height: 24),
+                  _buildStatsRow(),
+                  const SizedBox(height: 32),
+                  _buildMenuSection(context),
+                  const SizedBox(height: 100),
+                ],
+              ),
+            ),
+          ),
     );
   }
 
@@ -62,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              userName.isNotEmpty ? userName[0].toUpperCase() : "U",
+              widget.userName.isNotEmpty ? widget.userName[0].toUpperCase() : "U",
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -73,22 +145,57 @@ class ProfileScreen extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          userName,
+          _currentName,
           style: Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 24),
         ),
         Text(
-          userEmail,
+          widget.userEmail,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 16),
         OutlinedButton(
-          onPressed: () {},
+          onPressed: _navigateToEdit,
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           ),
           child: const Text("Edit Profile", style: TextStyle(fontSize: 14)),
         ),
       ],
+    );
+  }
+
+  Widget _buildDomainSection() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.primary.withOpacity(0.1)),
+      ),
+      child: Column(
+        children: [
+          const Text(
+            "CURRENTLY STUDYING",
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            _currentDomain,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 
@@ -103,16 +210,58 @@ class ProfileScreen extends StatelessWidget {
         final savedHackathons = snapshot.data?[1].length ?? 0;
         
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildStatItem("Skillit Level", "Gold"),
-            _buildStatDivider(),
-            _buildStatItem("Saved Internships", savedInternships.toString()),
-            _buildStatDivider(),
-            _buildStatItem("Saved Hackathons", savedHackathons.toString()),
+            Expanded(
+              child: _buildSimpleStatCard(
+                "Saved Internships", 
+                savedInternships.toString(),
+                Icons.work_outline_rounded,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: _buildSimpleStatCard(
+                "Saved Hackathons", 
+                savedHackathons.toString(),
+                Icons.code_rounded,
+              ),
+            ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildSimpleStatCard(String label, String value, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: AppColors.primary),
+          const SizedBox(height: 12),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12,
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -153,8 +302,8 @@ class ProfileScreen extends StatelessWidget {
       children: [
         _buildMenuItem(Icons.history, "Application History"),
         _buildMenuItem(
-          Icons.favorite_border, 
-          "Wishlist",
+          Icons.bookmark_border_rounded, 
+          "Saved Opportunities",
           onTap: () {
             Navigator.push(
               context,
@@ -167,8 +316,11 @@ class ProfileScreen extends StatelessWidget {
           Icons.logout,
           "Logout",
           color: AppColors.error,
-          onTap: () {
-            Navigator.of(context).pushReplacementNamed('/login');
+          onTap: () async {
+            await AuthService.logout();
+            if (context.mounted) {
+              Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+            }
           },
         ),
       ],

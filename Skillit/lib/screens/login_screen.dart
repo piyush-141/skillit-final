@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../main.dart';
 import '../services/api_service.dart';
+import '../services/auth_service.dart';
 import 'home_screen.dart';
 import 'main_layout.dart';
 import 'register_screen.dart';
+import '../services/bookmark_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -49,6 +51,16 @@ class _LoginScreenState extends State<LoginScreen> {
       if (result["token"] != null) {
         final userName = result["user"]?["name"] ?? result["name"] ?? 'User';
         final userEmail = _emailController.text.trim();
+
+        // PERSIST SESSION
+        await AuthService.saveAuthData(
+          token: result["token"],
+          name: userName,
+          email: userEmail,
+        );
+
+        // SYNC BOOKMARKS AND PROGRESS FROM BACKEND
+        await BookmarkService.syncAllToBackend();
 
         _showSnackBar("Login Successful", isError: false);
 
@@ -145,8 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';
                                 }
-                                if (!value.contains('@')) {
-                                  return 'Please enter a valid email';
+                                if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$').hasMatch(value)) {
+                                  return 'Strictly @gmail.com required';
                                 }
                                 return null;
                               },

@@ -157,8 +157,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your email';
                                 }
-                                if (!value.contains('@')) {
-                                  return 'Please enter a valid email';
+                                if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$').hasMatch(value)) {
+                                  return 'Strictly @gmail.com only required';
                                 }
                                 return null;
                               },
@@ -199,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (!RegExp(r'[A-Z]').hasMatch(value)) return 'Missing uppercase letter';
                                 if (!RegExp(r'[a-z]').hasMatch(value)) return 'Missing lowercase letter';
                                 if (!RegExp(r'[0-9]').hasMatch(value)) return 'Missing a number';
-                                if (!RegExp(r'[^a-zA-Z0-9]').hasMatch(value)) return 'Missing a special character';
+                                if (!RegExp(r'[^a-zA-Z0-9]').hasMatch(value)) return 'Missing special character';
                                 return null;
                               },
                             ),

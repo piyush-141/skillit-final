@@ -91,7 +91,7 @@ class _InternshipScreenState extends State<InternshipScreen> {
               centerTitle: true,
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.refresh, size: 20),
+                  icon: const Icon(Icons.refresh_rounded, size: 20),
                   onPressed: _loadInternships,
                 ),
               ],
@@ -99,41 +99,32 @@ class _InternshipScreenState extends State<InternshipScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Elegant Header Section
+          // Apple Style Search & Filter
           Padding(
-            padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.hideAppBar) ...[
-                  Text("Internships", style: Theme.of(context).textTheme.displayLarge),
-                  const SizedBox(height: 16),
-                ],
                 Container(
+                  height: 38, // Standard iOS search height
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.06),
-                        blurRadius: 15,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    color: const Color(0xFFE3E3E8).withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextFormField(
+                  child: TextField(
                     onChanged: (value) => setState(() => searchQuery = value),
-                    decoration: InputDecoration(
-                      hintText: "Search company or role",
-                      prefixIcon: const Icon(Icons.search, color: AppColors.primary),
+                    decoration: const InputDecoration(
+                      hintText: "Search internships",
+                      prefixIcon: Icon(Icons.search_rounded, color: Color(0xFF8E8E93), size: 18),
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical: 8),
                       fillColor: Colors.transparent,
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -141,24 +132,24 @@ class _InternshipScreenState extends State<InternshipScreen> {
                       final isSelected = selectedFilter == filter;
                       return Padding(
                         padding: const EdgeInsets.only(right: 8),
-                        child: ChoiceChip(
-                          label: Text(filter),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            setState(() => selectedFilter = filter);
-                          },
-                          showCheckmark: false,
-                          backgroundColor: Colors.white,
-                          selectedColor: Colors.black,
-                          labelStyle: TextStyle(
-                            color: isSelected ? Colors.white : AppColors.textPrimary,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(
-                              color: isSelected ? Colors.black : AppColors.border,
+                        child: GestureDetector(
+                          onTap: () => setState(() => selectedFilter = filter),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: isSelected ? AppColors.primary : Colors.white,
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                color: isSelected ? AppColors.primary : const Color(0xFFC6C6C8),
+                              ),
+                            ),
+                            child: Text(
+                              filter,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : AppColors.textPrimary,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
@@ -170,19 +161,19 @@ class _InternshipScreenState extends State<InternshipScreen> {
             ),
           ),
 
-          // Main Listing
+          // iOS Style List
           Expanded(
             child: isLoading
-                ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
                 : RefreshIndicator(
                     onRefresh: _loadInternships,
                     child: ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
                       itemCount: filteredInternships.length,
                       itemBuilder: (context, index) {
                         final item = filteredInternships[index];
                         final isBookmarked = bookmarkedIds.contains(item.title);
-                        return _buildInternshipCard(item, isBookmarked);
+                        return _buildInternshipItem(item, isBookmarked);
                       },
                     ),
                   ),
@@ -192,95 +183,61 @@ class _InternshipScreenState extends State<InternshipScreen> {
     );
   }
 
-  Widget _buildInternshipCard(Internship item, bool isBookmarked) {
+  Widget _buildInternshipItem(Internship item, bool isBookmarked) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      child: InkWell(
-        onTap: () => _openLink(item.link),
-        child: Column(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF2F2F7),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(Icons.business_rounded, color: AppColors.primary, size: 24),
+        ),
+        title: Text(
+          item.title,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image Placeholder (Airbnb uses large images)
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppColors.grayBg,
-                      image: DecorationImage(
-                        image: NetworkImage("https://source.unsplash.com/featured/?office,${item.company.replaceAll(' ', '')}"),
-                        fit: BoxFit.cover,
-                        onError: (e, s) => {},
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 12,
-                    right: 12,
-                    child: GestureDetector(
-                      onTap: () async {
-                        bool isSaved = await BookmarkService.toggleInternship(item.title);
-                        setState(() {
-                          if (isSaved) {
-                            bookmarkedIds.add(item.title);
-                          } else {
-                            bookmarkedIds.remove(item.title);
-                          }
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          isBookmarked ? Icons.favorite : Icons.favorite_border,
-                          color: isBookmarked ? AppColors.primary : AppColors.textPrimary,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
+            Text(item.company, style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+            const SizedBox(height: 4),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Text(
-                    item.title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, size: 14, color: Colors.black),
-                    const SizedBox(width: 4),
-                    Text("New", style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
-                  ],
-                ),
+                const Icon(Icons.location_on_rounded, size: 12, color: Color(0xFF8E8E93)),
+                const SizedBox(width: 4),
+                Text(item.location, style: const TextStyle(fontSize: 12, color: Color(0xFF8E8E93))),
               ],
-            ),
-            Text(item.company, style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: 4),
-            Text(
-              "${item.duration} • ${item.type}",
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              item.location,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),
+        trailing: IconButton(
+          icon: Icon(
+            isBookmarked ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+            color: isBookmarked ? AppColors.primary : const Color(0xFFC6C6C8),
+          ),
+          onPressed: () async {
+            bool isSaved = await BookmarkService.toggleInternship(item.title);
+            setState(() {
+              if (isSaved) {
+                bookmarkedIds.add(item.title);
+              } else {
+                bookmarkedIds.remove(item.title);
+              }
+            });
+          },
+        ),
+        onTap: () => _openLink(item.link),
       ),
     );
   }

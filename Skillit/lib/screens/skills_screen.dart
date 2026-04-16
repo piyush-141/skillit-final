@@ -74,7 +74,7 @@ class _SkillsScreenState extends State<SkillsScreen> {
       ),
       body: IndexedStack(
         index: _showRoadmaps ? 0 : 1,
-        children: const [
+        children: [
           RoadmapScreen(hideAppBar: true),
           ProjectsScreen(hideAppBar: true),
         ],

@@ -15,6 +15,8 @@ app.use("/api/internships", require("./routes/internshipRoutes"));
 app.use("/api/hackathons", require("./routes/hackathonRoutes"));
 app.use("/api/roadmaps", require("./routes/roadmapRoutes"));
 app.use("/api/companies", require("./routes/companyRoutes"));
+app.use("/api/projects", require("./routes/projectRoutes"));
+app.use("/api/search", require("./routes/searchRoutes"));
 
 // MongoDB Connection (Atlas) - Runs in background
 mongoose
@@ -28,3 +30,4 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🔗 Local link: http://localhost:${PORT}/api/roadmaps`);
 });
+

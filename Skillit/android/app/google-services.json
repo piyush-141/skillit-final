@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "120899994187",
+    "project_id": "skill-it7",
+    "storage_bucket": "skill-it7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120899994187:android:78b9945bebb708f60503ce",
+        "android_client_info": {
+          "package_name": "com.example.skillit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh7ZAzqDAkFaAwVZYJ1JFJW-u1pQAOaCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

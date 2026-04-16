@@ -468,10 +468,19 @@ const realisticHackathons = [
   },
 ];
 
+const Hackathon = require('../models/Hackathon');
+
+exports.realisticHackathons = realisticHackathons;
+
 exports.getHackathons = async (req, res) => {
   try {
-    console.log(`✅ Serving ${realisticHackathons.length} curated hackathons`);
-    res.json(realisticHackathons);
+    const hackathons = await Hackathon.find();
+    if (hackathons.length === 0) {
+      console.log(`⚠️ DB Empty, serving ${realisticHackathons.length} curated hackathons`);
+      return res.json(realisticHackathons);
+    }
+    console.log(`✅ Serving ${hackathons.length} hackathons from DB`);
+    res.json(hackathons);
   } catch (err) {
     console.error("❌ Error:", err.message);
     res.status(500).json({ msg: "Error fetching hackathons" });

@@ -89,7 +89,7 @@ class _HackathonScreenState extends State<HackathonScreen> {
               centerTitle: true,
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.refresh, size: 20),
+                  icon: const Icon(Icons.refresh_rounded, size: 20),
                   onPressed: _loadHackathons,
                 ),
               ],
@@ -97,41 +97,32 @@ class _HackathonScreenState extends State<HackathonScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Elegant Header Section
+          // Apple Style Search & Filter
           Padding(
-            padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.hideAppBar) ...[
-                  Text("Hackathons", style: Theme.of(context).textTheme.displayLarge),
-                  const SizedBox(height: 16),
-                ],
                 Container(
+                  height: 38,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.06),
-                        blurRadius: 15,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    color: const Color(0xFFE3E3E8).withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextFormField(
+                  child: TextField(
                     onChanged: (value) => setState(() => searchQuery = value),
-                    decoration: InputDecoration(
-                      hintText: "Search coding contests",
-                      prefixIcon: const Icon(Icons.search, color: AppColors.primary),
+                    decoration: const InputDecoration(
+                      hintText: "Search hackathons",
+                      prefixIcon: Icon(Icons.search_rounded, color: Color(0xFF8E8E93), size: 18),
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical: 8),
                       fillColor: Colors.transparent,
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -139,24 +130,24 @@ class _HackathonScreenState extends State<HackathonScreen> {
                       final isSelected = selectedFilter == filter;
                       return Padding(
                         padding: const EdgeInsets.only(right: 8),
-                        child: ChoiceChip(
-                          label: Text(filter),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            setState(() => selectedFilter = filter);
-                          },
-                          showCheckmark: false,
-                          backgroundColor: Colors.white,
-                          selectedColor: Colors.black,
-                          labelStyle: TextStyle(
-                            color: isSelected ? Colors.white : AppColors.textPrimary,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(
-                              color: isSelected ? Colors.black : AppColors.border,
+                        child: GestureDetector(
+                          onTap: () => setState(() => selectedFilter = filter),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: isSelected ? AppColors.primary : Colors.white,
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                color: isSelected ? AppColors.primary : const Color(0xFFC6C6C8),
+                              ),
+                            ),
+                            child: Text(
+                              filter,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : AppColors.textPrimary,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
@@ -168,20 +159,20 @@ class _HackathonScreenState extends State<HackathonScreen> {
             ),
           ),
 
-          // Main Listing
+          // iOS Style List
           Expanded(
             child: isLoading
-                ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
                 : RefreshIndicator(
                     onRefresh: _loadHackathons,
                     child: ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
                       itemCount: filteredHackathons.length,
                       itemBuilder: (context, index) {
                         final item = filteredHackathons[index];
                         final title = item["title"] ?? "Untitled";
                         final isBookmarked = bookmarkedTitles.contains(title);
-                        return _buildHackathonCard(item, title, isBookmarked);
+                        return _buildHackathonItem(item, title, isBookmarked);
                       },
                     ),
                   ),
@@ -191,95 +182,65 @@ class _HackathonScreenState extends State<HackathonScreen> {
     );
   }
 
-  Widget _buildHackathonCard(Map<String, dynamic> item, String title, bool isBookmarked) {
+  Widget _buildHackathonItem(Map<String, dynamic> item, String title, bool isBookmarked) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      child: InkWell(
-        onTap: () => _openLink(item["link"] ?? ""),
-        child: Column(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFF7E6), // Subtle warm tint for contests
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(Icons.emoji_events_rounded, color: Color(0xFFFAAD14), size: 24),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppColors.grayBg,
-                      image: DecorationImage(
-                        image: NetworkImage("https://source.unsplash.com/featured/?coding,hackathon,${title.split(' ').first}"),
-                        fit: BoxFit.cover,
-                        onError: (e, s) => {},
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 12,
-                    right: 12,
-                    child: GestureDetector(
-                      onTap: () async {
-                        bool isSaved = await BookmarkService.toggleHackathon(title);
-                        setState(() {
-                          if (isSaved) {
-                            bookmarkedTitles.add(title);
-                          } else {
-                            bookmarkedTitles.remove(title);
-                          }
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          isBookmarked ? Icons.favorite : Icons.favorite_border,
-                          color: isBookmarked ? AppColors.primary : AppColors.textPrimary,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
+            Text(item["organizer"] ?? "Global Host", style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+            const SizedBox(height: 4),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, size: 14, color: Colors.black),
-                    const SizedBox(width: 4),
-                    Text(item["prize"]?.contains('\$') == true ? "Grand" : "Top", 
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)),
-                  ],
-                ),
+                const Icon(Icons.calendar_today_rounded, size: 12, color: Color(0xFF8E8E93)),
+                const SizedBox(width: 4),
+                Text(item["date"] ?? "TBA", style: const TextStyle(fontSize: 12, color: Color(0xFF8E8E93))),
+                const SizedBox(width: 12),
+                const Icon(Icons.location_on_rounded, size: 12, color: Color(0xFF8E8E93)),
+                const SizedBox(width: 4),
+                Text(item["mode"] ?? "Online", style: const TextStyle(fontSize: 12, color: Color(0xFF8E8E93))),
               ],
-            ),
-            Text(item["organizer"] ?? "Global Organizer", style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: 4),
-            Text(
-              "${item["date"]} • ${item["mode"]}",
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              item["location"] ?? "Online",
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),
+        trailing: IconButton(
+          icon: Icon(
+            isBookmarked ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+            color: isBookmarked ? AppColors.primary : const Color(0xFFC6C6C8),
+          ),
+          onPressed: () async {
+            bool isSaved = await BookmarkService.toggleHackathon(title);
+            setState(() {
+              if (isSaved) {
+                bookmarkedTitles.add(title);
+              } else {
+                bookmarkedTitles.remove(title);
+              }
+            });
+          },
+        ),
+        onTap: () => _openLink(item["link"] ?? ""),
       ),
     );
   }

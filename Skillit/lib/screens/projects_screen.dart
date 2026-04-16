@@ -313,9 +313,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 
   Widget _buildDifficultyTabs() {
-    return Container(
-      constraints: const BoxConstraints(minHeight: 50),
-      margin: const EdgeInsets.symmetric(vertical: 10),
+    return SizedBox(
+      height: 50,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),

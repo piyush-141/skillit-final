@@ -361,9 +361,12 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   // Requirement 4: Expandable Card Design & Requirement 6: Interaction
   Widget _buildProjectCard(Map<String, dynamic> project) {
-    final String pId = project['level_id'] ?? project['title'];
+    final String title = project['title']?.toString() ?? "Untitled Project";
+    final String pId = project['level_id']?.toString() ?? 
+                       project['_id']?.toString() ?? 
+                       title;
     final bool isExpanded = _expandedProjectId == pId;
-    final level = project['level'] ?? "Basic";
+    final level = project['level']?.toString() ?? "Basic";
     
     Color levelColor = Colors.green;
     if (level == "Intermediate") levelColor = Colors.orange;
@@ -409,7 +412,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             ),
           ),
           title: Text(
-            project['title'] ?? "",
+            title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           subtitle: _buildSkillsWrap(project['skills_gained'] as List<dynamic>? ?? [], levelColor),
@@ -431,11 +434,11 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   
                   const SizedBox(height: 12),
                   const Text(
-                    "What you will learn",
+                    "Trending Technologies",
                     style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
                   ),
                   const SizedBox(height: 8),
-                  ... (project['what_you_will_learn'] as List<dynamic>? ?? []).map((step) => Padding(
+                  ... (project['trending_technologies'] as List<dynamic>? ?? []).map((step) => Padding(
                     padding: const EdgeInsets.only(bottom: 6),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -10,7 +10,9 @@ import '../services/api_service.dart';
 class RoadmapScreen extends StatefulWidget {
   final bool hideAppBar;
   final String? initialRoadmapId;
-  const RoadmapScreen({Key? key, this.hideAppBar = false, this.initialRoadmapId}) : super(key: key);
+  const RoadmapScreen(
+      {Key? key, this.hideAppBar = false, this.initialRoadmapId})
+      : super(key: key);
 
   @override
   State<RoadmapScreen> createState() => _RoadmapScreenState();
@@ -55,27 +57,37 @@ class _RoadmapScreenState extends State<RoadmapScreen>
       if (data != null && data['fields'] != null) {
         final List<dynamic> fields = data['fields'];
         setState(() {
-          _allRoadmaps = fields.map((f) => CareerRoadmap(
-            id: f['id'],
-            title: f['label'],
-            description: f['tagline'] ?? "",
-            emoji: "🚀", // Backend doesn't have emoji yet, using placeholder
-            difficulty: "Intermediate",
-            totalWeeks: 12,
-            steps: (f['roadmap'] as List).map((s) => RoadmapStep(
-              title: s['title'] ?? "Untitled Step",
-              description: s['description'] ?? s['title'] ?? "",
-              skills: s['skills'] != null ? List<String>.from(s['skills']) : [],
-              durationWeeks: s['durationWeeks'] ?? 1,
-            )).toList(),
-            courses: (f['resources'] as List).map((r) => RoadmapCourse(
-              title: r['title'] ?? "Untitled Resource",
-              platform: r['platform'] ?? r['channel'] ?? "YouTube",
-              url: r['url'] ?? "",
-              duration: r['duration'] ?? "Varies",
-            )).toList(),
-          )).toList();
-          
+          _allRoadmaps = fields
+              .map((f) => CareerRoadmap(
+                    id: f['id'],
+                    title: f['label'],
+                    description: f['tagline'] ?? "",
+                    emoji:
+                        "◦", // Backend doesn't have emoji yet, using placeholder
+                    difficulty: "Intermediate",
+                    totalWeeks: 12,
+                    steps: (f['roadmap'] as List)
+                        .map((s) => RoadmapStep(
+                              title: s['title'] ?? "Untitled Step",
+                              description: s['description'] ?? s['title'] ?? "",
+                              skills: s['skills'] != null
+                                  ? List<String>.from(s['skills'])
+                                  : [],
+                              durationWeeks: s['durationWeeks'] ?? 1,
+                            ))
+                        .toList(),
+                    courses: (f['resources'] as List)
+                        .map((r) => RoadmapCourse(
+                              title: r['title'] ?? "Untitled Resource",
+                              platform:
+                                  r['platform'] ?? r['channel'] ?? "YouTube",
+                              url: r['url'] ?? "",
+                              duration: r['duration'] ?? "Varies",
+                            ))
+                        .toList(),
+                  ))
+              .toList();
+
           if (widget.initialRoadmapId != null) {
             _onRoadmapSelected(widget.initialRoadmapId);
           }
@@ -156,8 +168,10 @@ class _RoadmapScreenState extends State<RoadmapScreen>
   void _onRoadmapSelected(String? id) {
     setState(() {
       _selectedRoadmapId = id;
-      _selectedRoadmap =
-          id != null && _allRoadmaps.isNotEmpty ? _allRoadmaps.firstWhere((r) => r.id == id, orElse: () => _allRoadmaps.first) : null;
+      _selectedRoadmap = id != null && _allRoadmaps.isNotEmpty
+          ? _allRoadmaps.firstWhere((r) => r.id == id,
+              orElse: () => _allRoadmaps.first)
+          : null;
     });
   }
 
@@ -176,48 +190,48 @@ class _RoadmapScreenState extends State<RoadmapScreen>
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-            // Header
-            if (!widget.hideAppBar)
-              SliverToBoxAdapter(
-                child: _buildHeader(),
-              ),
-
-            // Dropdown selector
+          // Header
+          if (!widget.hideAppBar)
             SliverToBoxAdapter(
-              child: _buildDropdownSection(),
+              child: _buildHeader(),
             ),
 
-            // Roadmap content
-            if (_selectedRoadmap != null) ...[
-              SliverToBoxAdapter(child: _buildRoadmapInfoCard()),
-              SliverToBoxAdapter(
-                child: _buildSectionHeader(
-                  'Learning Path',
-                  '${_selectedRoadmap!.steps.length} Stages',
+          // Dropdown selector
+          SliverToBoxAdapter(
+            child: _buildDropdownSection(),
+          ),
+
+          // Roadmap content
+          if (_selectedRoadmap != null) ...[
+            SliverToBoxAdapter(child: _buildRoadmapInfoCard()),
+            SliverToBoxAdapter(
+              child: _buildSectionHeader(
+                'Learning Path',
+                '${_selectedRoadmap!.steps.length} Stages',
+              ),
+            ),
+            SliverToBoxAdapter(child: _buildTimeline()),
+            SliverToBoxAdapter(
+              child: _buildSectionHeader(
+                'Handpicked Resources',
+                '${_selectedRoadmap!.courses.length} Links',
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return _buildCourseCard(
+                        _selectedRoadmap!.courses[index], index);
+                  },
+                  childCount: _selectedRoadmap!.courses.length,
                 ),
               ),
-              SliverToBoxAdapter(child: _buildTimeline()),
-              SliverToBoxAdapter(
-                child: _buildSectionHeader(
-                  'Handpicked Resources',
-                  '${_selectedRoadmap!.courses.length} Links',
-                ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return _buildCourseCard(
-                          _selectedRoadmap!.courses[index], index);
-                    },
-                    childCount: _selectedRoadmap!.courses.length,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 40)),
-            ] else
-              SliverToBoxAdapter(child: _buildEmptyState()),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          ] else
+            SliverToBoxAdapter(child: _buildEmptyState()),
         ],
       ),
     );

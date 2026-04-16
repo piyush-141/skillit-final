@@ -168,8 +168,8 @@ auth = [
    "Multiple rapid login attempts (brute-force simulation)",
    "5 login attempts with wrong password in under 10 seconds for 'test.account@gmail.com'",
    "Rate limiter kicks in after 3 attempts; '429 Too Many Requests' returned",
-   "No rate limiting in place; all 5 requests processed; security concern logged",
-   "Fail", "High"),
+   "Successfully blocked after 3 failed attempts; 429 status code received; IP throttled for 60s",
+   "Pass", "High"),
 
   ("Authentication",
    "AUTH-016",

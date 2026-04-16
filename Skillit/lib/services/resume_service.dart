@@ -37,6 +37,48 @@ class ResumeData {
     required this.experience,
     required this.achievements,
   });
+
+  Map<String, dynamic> toJson() => {
+        'fullName': fullName,
+        'email': email,
+        'phone': phone,
+        'summary': summary,
+        'college': college,
+        'degree': degree,
+        'cgpa': cgpa,
+        'graduationYear': graduationYear,
+        'githubUrl': githubUrl,
+        'linkedinUrl': linkedinUrl,
+        'portfolioUrl': portfolioUrl,
+        'skills': skills,
+        'projects': projects.map((p) => p.toJson()).toList(),
+        'experience': experience.map((e) => e.toJson()).toList(),
+        'achievements': achievements,
+      };
+
+  factory ResumeData.fromJson(Map<String, dynamic> j) => ResumeData(
+        fullName: j['fullName'] as String? ?? '',
+        email: j['email'] as String? ?? '',
+        phone: j['phone'] as String? ?? '',
+        summary: j['summary'] as String? ?? '',
+        college: j['college'] as String? ?? '',
+        degree: j['degree'] as String? ?? '',
+        cgpa: j['cgpa'] as String? ?? '',
+        graduationYear: j['graduationYear'] as String? ?? '',
+        githubUrl: j['githubUrl'] as String? ?? '',
+        linkedinUrl: j['linkedinUrl'] as String? ?? '',
+        portfolioUrl: j['portfolioUrl'] as String? ?? '',
+        skills: (j['skills'] as Map<String, dynamic>? ?? {}).map(
+          (k, v) => MapEntry(k, List<String>.from(v as List)),
+        ),
+        projects: (j['projects'] as List<dynamic>? ?? [])
+            .map((e) => ProjectEntry.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        experience: (j['experience'] as List<dynamic>? ?? [])
+            .map((e) => ExperienceEntry.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        achievements: List<String>.from(j['achievements'] as List? ?? []),
+      );
 }
 
 class ProjectEntry {
@@ -51,6 +93,20 @@ class ProjectEntry {
     required this.techStack,
     required this.link,
   });
+
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'description': description,
+        'techStack': techStack,
+        'link': link,
+      };
+
+  factory ProjectEntry.fromJson(Map<String, dynamic> j) => ProjectEntry(
+        title: j['title'] as String? ?? '',
+        description: j['description'] as String? ?? '',
+        techStack: j['techStack'] as String? ?? '',
+        link: j['link'] as String? ?? '',
+      );
 }
 
 class ExperienceEntry {
@@ -65,6 +121,20 @@ class ExperienceEntry {
     required this.duration,
     required this.description,
   });
+
+  Map<String, dynamic> toJson() => {
+        'role': role,
+        'company': company,
+        'duration': duration,
+        'description': description,
+      };
+
+  factory ExperienceEntry.fromJson(Map<String, dynamic> j) => ExperienceEntry(
+        role: j['role'] as String? ?? '',
+        company: j['company'] as String? ?? '',
+        duration: j['duration'] as String? ?? '',
+        description: j['description'] as String? ?? '',
+      );
 }
 
 class ResumeGenerator {

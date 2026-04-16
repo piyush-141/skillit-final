@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../main.dart'; // for AppColors
 import '../services/bookmark_service.dart';
 import '../services/auth_service.dart';
+import '../services/resume_persistence_service.dart';
 import 'saved_items_screen.dart';
 import '../services/api_service.dart';
-
+import 'resume_preview_screen.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -300,10 +301,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildMenuSection(BuildContext context) {
     return Column(
       children: [
-        _buildMenuItem(Icons.history, "Application History"),
+        _buildResumeMenuItem(context),
         _buildMenuItem(
-          Icons.bookmark_border_rounded, 
-          "Saved Opportunities",
+          Icons.bookmark_border_rounded,
+          'Saved Opportunities',
           onTap: () {
             Navigator.push(
               context,
@@ -311,19 +312,80 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           },
         ),
-        _buildMenuItem(Icons.help_outline, "Help & Support"),
+        _buildMenuItem(Icons.help_outline, 'Help & Support'),
         _buildMenuItem(
           Icons.logout,
-          "Logout",
+          'Logout',
           color: AppColors.error,
           onTap: () async {
             await AuthService.logout();
             if (context.mounted) {
-              Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/login', (route) => false);
             }
           },
         ),
       ],
+    );
+  }
+
+  /// "Your Resume" menu tile — shows Ready / Not Built badge from SharedPreferences.
+  Widget _buildResumeMenuItem(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: ResumePersistenceService.hasResume(),
+      builder: (context, snapshot) {
+        final hasResume = snapshot.data ?? false;
+        return ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => const ResumePreviewScreen()),
+            );
+          },
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+          leading: const Icon(Icons.description_rounded,
+              color: AppColors.textPrimary, size: 24),
+          title: const Text(
+            'Your Resume',
+            style: TextStyle(
+              color: AppColors.textPrimary,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (snapshot.connectionState == ConnectionState.done)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: hasResume
+                        ? AppColors.success.withOpacity(0.12)
+                        : AppColors.textMuted.withOpacity(0.10),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    hasResume ? 'Ready' : 'Not built',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: hasResume
+                          ? AppColors.success
+                          : AppColors.textMuted,
+                    ),
+                  ),
+                ),
+              const SizedBox(width: 4),
+              const Icon(Icons.chevron_right,
+                  color: AppColors.textMuted, size: 20),
+            ],
+          ),
+        );
+      },
     );
   }
 

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:printing/printing.dart';
-import 'package:pdf/pdf.dart';
 import '../main.dart';
 import '../services/resume_service.dart';
+import '../services/resume_persistence_service.dart';
+import 'resume_preview_screen.dart';
 
 class ResumeBuilderScreen extends StatefulWidget {
   const ResumeBuilderScreen({Key? key}) : super(key: key);
@@ -783,30 +782,19 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
         achievements: _achievements,
       );
 
-      // We go directly to the preview screen and let IT handle the generation
-      // using the captured 'data' object.
+      // 1. Persist resume data (no local file — stored as JSON in SharedPreferences)
+      await ResumePersistenceService.saveResumeData(data);
+
+      // 2. Open the in-app widget preview, passing data directly
+      if (!mounted) return;
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Scaffold(
-            appBar: AppBar(
-              title: const Text('Export Resume'),
-              backgroundColor: AppColors.surface,
-              iconTheme: const IconThemeData(color: AppColors.textPrimary),
-            ),
-            body: PdfPreview(
-              build: (format) async {
-                final pdf = await ResumeGenerator.generateResume(data);
-                return pdf.save();
-              },
-              pdfFileName: '${data.fullName.replaceAll(' ', '_')}_Resume.pdf',
-              canDebug: false,
-            ),
-          ),
+          builder: (_) => ResumePreviewScreen(resumeData: data),
         ),
       );
     } catch (e) {
-      _showSnackbar('Error: $e');
+      _showSnackbar('Error generating resume: $e');
     } finally {
       if (mounted) setState(() => _isGenerating = false);
     }

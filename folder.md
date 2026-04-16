@@ -160,3 +160,95 @@ JWT_SECRET=<secret>
 | `folder.md` | This file — complete project structure reference |
 | `codebase.md` | High-level architecture and feature summary |
 | `README.md` | Installation and deployment guide |
+
+---
+
+## 🗂️ Quick Folder Tree
+
+```
+skillit-final/
+├── folder.md
+├── codebase.md
+│
+├── Skillit/                          # Flutter App
+│   ├── pubspec.yaml
+│   ├── assets/
+│   │   ├── images/
+│   │   └── data/
+│   │       ├── projects.json
+│   │       ├── roadmaps.json
+│   │       └── companies.json
+│   └── lib/
+│       ├── main.dart
+│       ├── data/
+│       │   └── mock_roadmaps.dart
+│       ├── models/
+│       ├── services/
+│       │   ├── api_service.dart
+│       │   ├── auth_service.dart
+│       │   ├── bookmark_service.dart
+│       │   ├── hackathon_service.dart
+│       │   ├── internship_service.dart
+│       │   └── resume_service.dart
+│       ├── widgets/
+│       │   └── glassmorphic_bottom_nav.dart
+│       └── screens/
+│           ├── splash_screen.dart
+│           ├── login_screen.dart
+│           ├── register_screen.dart
+│           ├── main_layout.dart
+│           ├── home_screen.dart
+│           ├── opportunities_screen.dart
+│           ├── internship_screen.dart
+│           ├── hackathon_screen.dart
+│           ├── companies_screen.dart
+│           ├── company_detail_screen.dart
+│           ├── cold_outreach_screen.dart
+│           ├── skills_screen.dart
+│           ├── roadmap_screen.dart
+│           ├── projects_screen.dart
+│           ├── resume_builder_screen.dart
+│           ├── saved_items_screen.dart
+│           ├── profile_screen.dart
+│           └── edit_profile_screen.dart
+│
+└── Skillit-Backend/                  # Node.js / Express API
+    ├── server.js
+    ├── .env
+    ├── package.json
+    ├── config/
+    │   └── serviceAccountKey.json
+    ├── data/
+    │   ├── projects.json
+    │   ├── roadmaps.json
+    │   └── companies.json
+    ├── models/
+    │   ├── User.js
+    │   ├── Roadmap.js
+    │   ├── Project.js
+    │   ├── Company.js
+    │   ├── Internship.js
+    │   └── Hackathon.js
+    ├── controllers/
+    │   ├── authController.js
+    │   ├── userController.js
+    │   ├── roadmapController.js
+    │   ├── projectController.js
+    │   ├── companyController.js
+    │   ├── internshipController.js
+    │   ├── hackathonController.js
+    │   └── searchController.js
+    ├── routes/
+    │   ├── authRoutes.js
+    │   ├── roadmapRoutes.js
+    │   ├── projectRoutes.js
+    │   ├── companyRoutes.js
+    │   ├── internshipRoutes.js
+    │   ├── hackathonRoutes.js
+    │   └── searchRoutes.js
+    ├── middleware/
+    ├── services/
+    │   └── apify.service.js
+    └── scripts/
+        └── seedDB.js
+```

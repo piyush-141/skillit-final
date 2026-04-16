@@ -6,7 +6,11 @@ class ProjectsScreen extends StatefulWidget {
   final bool hideAppBar;
   final String? initialDomainId;
   final String? initialProjectTitle;
-  const ProjectsScreen({super.key, this.hideAppBar = false, this.initialDomainId, this.initialProjectTitle});
+  const ProjectsScreen(
+      {super.key,
+      this.hideAppBar = false,
+      this.initialDomainId,
+      this.initialProjectTitle});
 
   @override
   State<ProjectsScreen> createState() => _ProjectsScreenState();
@@ -18,8 +22,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   String _selectedLevel = "All";
   bool _isLoading = true;
   String _errorMessage = "";
-
-  // Track the unique ID of the currently expanded project
   String? _expandedProjectId;
 
   final List<String> _levels = ["All", "Basic", "Intermediate", "Advanced"];
@@ -31,6 +33,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 
   Future<void> _loadProjects() async {
+    if (!mounted) return;
     setState(() {
       _isLoading = true;
       _errorMessage = "";
@@ -38,68 +41,62 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
     try {
       final dynamic data = await ApiService.getProjects();
-      print("🔍 RECEIVED PROJECTS DATA: ${data != null}");
-      if (mounted) {
-        setState(() {
-          if (data is Map && data.containsKey('domains')) {
-            _allDomains = data['domains'] as List<dynamic>;
-            print("✅ Loaded ${_allDomains.length} domains from Map");
-          } else if (data is List) {
-            _allDomains = data;
-            print("✅ Loaded ${_allDomains.length} domains from List");
-          } else {
-            print("⚠️ Data structure invalid: $data");
-            _errorMessage = "Invalid data structure in projects.json";
-            _allDomains = [];
-          }
-          _isLoading = false;
-        });
+      if (!mounted) return;
+      setState(() {
+        if (data is Map && data.containsKey('domains')) {
+          _allDomains = List<dynamic>.from(data['domains']);
+        } else if (data is List) {
+          _allDomains = List<dynamic>.from(data);
+        } else {
+          _errorMessage = "Could not load project data.";
+          _allDomains = [];
+        }
+        _isLoading = false;
+      });
 
-        if (widget.initialDomainId != null) {
+      // Auto-select domain if provided
+      if (widget.initialDomainId != null && _allDomains.isNotEmpty) {
+        try {
           final domain = _allDomains.firstWhere(
-            (d) => d['domain_id'] == widget.initialDomainId,
-            orElse: () => null,
-          );
-          if (domain != null) {
+              (d) => d['domain_id'] == widget.initialDomainId);
+          if (mounted) {
             setState(() {
-              _selectedDomain = domain;
-              if (widget.initialProjectTitle != null) {
-                _expandedProjectId = widget.initialProjectTitle; // Or a specific ID if available
-              }
+              _selectedDomain = domain as Map<String, dynamic>;
             });
           }
-        }
+        } catch (_) {}
       }
     } catch (e) {
-      print("❌ Error loading projects: $e");
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _errorMessage = "Failed to load projects: $e";
-        });
-      }
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        _errorMessage = "Failed to load projects. Please try again.";
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final body = _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : _errorMessage.isNotEmpty
-            ? _buildErrorState()
-            : AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child: _selectedDomain == null
-                    ? _buildDomainSelectionGrid()
-                    : _buildProjectExplorer(),
-              );
+    // Use LayoutBuilder to always have proper constraints
+    final content = LayoutBuilder(
+      builder: (context, constraints) {
+        if (_isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (_errorMessage.isNotEmpty) {
+          return _buildErrorState();
+        }
+        if (_selectedDomain == null) {
+          return _buildDomainSelectionGrid(constraints);
+        }
+        return _buildProjectExplorer(constraints);
+      },
+    );
 
     if (widget.hideAppBar) {
-      return SizedBox.expand(
-        child: Material(
-          color: AppColors.background,
-          child: SafeArea(child: body),
-        ),
+      return Material(
+        color: AppColors.background,
+        child: content,
       );
     }
 
@@ -116,7 +113,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               )
             : null,
       ),
-      body: body,
+      body: content,
     );
   }
 
@@ -127,86 +124,99 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         children: [
           const Icon(Icons.error_outline, size: 48, color: AppColors.error),
           const SizedBox(height: 16),
-          Text(_errorMessage, style: const TextStyle(color: AppColors.textSecondary)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(_errorMessage,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: AppColors.textSecondary)),
+          ),
           const SizedBox(height: 24),
-          ElevatedButton(onPressed: _loadProjects, child: const Text("Retry")),
+          ElevatedButton(
+              onPressed: _loadProjects, child: const Text("Retry")),
         ],
       ),
     );
   }
 
-  // Requirement 2: First ask user to select a domain
-  Widget _buildDomainSelectionGrid() {
-    return Column(
-      key: const ValueKey("domain_selection"),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-          child: Text(
-            "Select a Domain",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            "Pick a path to see curated project ideas designed for your portfolio.",
-            style: TextStyle(color: AppColors.textSecondary),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Expanded(
-          child: _allDomains.isEmpty
-              ? const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.folder_open, size: 48, color: AppColors.textMuted),
-                      SizedBox(height: 16),
-                      Text("No domains found in projects.json", style: TextStyle(color: AppColors.textSecondary)),
-                    ],
-                  ),
-                )
-              : GridView.builder(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.0, // Increased height to prevent overflow
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
+  Widget _buildDomainSelectionGrid(BoxConstraints constraints) {
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Select a Domain",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "Pick a path to see curated project ideas for your portfolio.",
+                  style: TextStyle(color: AppColors.textSecondary),
+                ),
+              ],
             ),
-            itemCount: _allDomains.length,
-            itemBuilder: (context, index) {
-              final domain = _allDomains[index];
-              return _buildDomainCard(domain);
-            },
           ),
         ),
+        if (_allDomains.isEmpty)
+          const SliverFillRemaining(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.folder_open, size: 56, color: AppColors.textMuted),
+                  SizedBox(height: 12),
+                  Text(
+                    "No project domains found.",
+                    style: TextStyle(color: AppColors.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+          )
+        else
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1.0,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) =>
+                    _buildDomainCard(_allDomains[index] as Map<String, dynamic>),
+                childCount: _allDomains.length,
+              ),
+            ),
+          ),
       ],
     );
   }
 
   Widget _buildDomainCard(Map<String, dynamic> domain) {
+    final projectCount = (domain['projects'] as List?)?.length ?? 0;
     return InkWell(
-      onTap: () => setState(() => _selectedDomain = domain),
+      onTap: () => setState(() {
+        _selectedDomain = domain;
+        _selectedLevel = "All";
+        _expandedProjectId = null;
+      }),
       borderRadius: BorderRadius.circular(16),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.border),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.surface,
-              AppColors.surface.withOpacity(0.8),
-            ],
-          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withOpacity(0.08),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -217,24 +227,24 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              _getDomainIcon(domain['domain_id']),
+              _getDomainIcon(domain['domain_id']?.toString() ?? ''),
               size: 40,
               color: AppColors.primary,
             ),
             const SizedBox(height: 12),
             Text(
-              domain['domain_label'] ?? "Unknown",
+              domain['domain_label']?.toString() ?? "Unknown",
               textAlign: TextAlign.center,
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 14),
             ),
             const SizedBox(height: 4),
             Text(
-              "${(domain['projects'] as List).length} Projects",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+              "$projectCount Projects",
+              style: const TextStyle(
+                  fontSize: 12, color: AppColors.textMuted),
             ),
           ],
         ),
@@ -242,40 +252,101 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     );
   }
 
-  IconData _getDomainIcon(dynamic id) {
-    final String sId = id.toString().toLowerCase();
-    if (sId.contains('frontend')) return Icons.web;
-    if (sId.contains('backend')) return Icons.storage;
-    if (sId.contains('fullstack')) return Icons.layers;
-    if (sId.contains('machine')) return Icons.psychology;
-    if (sId.contains('data')) return Icons.analytics;
-    if (sId.contains('android') || sId.contains('mobile')) return Icons.phone_android;
-    if (sId.contains('cloud')) return Icons.cloud;
-    if (sId.contains('cyber')) return Icons.security;
+  IconData _getDomainIcon(String id) {
+    final s = id.toLowerCase();
+    if (s.contains('frontend')) return Icons.web;
+    if (s.contains('backend')) return Icons.storage;
+    if (s.contains('fullstack')) return Icons.layers;
+    if (s.contains('machine')) return Icons.psychology;
+    if (s.contains('data')) return Icons.analytics;
+    if (s.contains('android') || s.contains('mobile')) return Icons.phone_android;
+    if (s.contains('cloud')) return Icons.cloud;
+    if (s.contains('cyber')) return Icons.security;
     return Icons.code;
   }
 
-  // Requirement 3: Filtering & Requirement 5: Layout
-  Widget _buildProjectExplorer() {
-    final projects = (_selectedDomain!['projects'] as List<dynamic>? ?? []).where((p) {
-      if (_selectedLevel == "All") return true;
-      return p['level'] == _selectedLevel;
-    }).toList();
+  Widget _buildProjectExplorer(BoxConstraints constraints) {
+    final allProjects =
+        (_selectedDomain!['projects'] as List<dynamic>? ?? []);
+    final filtered = _selectedLevel == "All"
+        ? allProjects
+        : allProjects
+            .where((p) => p['level']?.toString() == _selectedLevel)
+            .toList();
 
     return Column(
-      key: const ValueKey("project_explorer"),
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildExplorerHeader(),
-        _buildDifficultyTabs(),
+        // Header row with back button
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 8, 16, 0),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back_ios,
+                    size: 20, color: AppColors.primary),
+                onPressed: () =>
+                    setState(() => _selectedDomain = null),
+              ),
+              Expanded(
+                child: Text(
+                  _selectedDomain!['domain_label']?.toString() ?? "",
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Difficulty tabs
+        SizedBox(
+          height: 48,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            itemCount: _levels.length,
+            itemBuilder: (context, index) {
+              final level = _levels[index];
+              final isSelected = _selectedLevel == level;
+              return Padding(
+                padding: const EdgeInsets.only(right: 8, top: 4, bottom: 4),
+                child: ChoiceChip(
+                  label: Text(level),
+                  selected: isSelected,
+                  onSelected: (val) {
+                    if (val) setState(() => _selectedLevel = level);
+                  },
+                  backgroundColor: AppColors.surface,
+                  selectedColor: AppColors.primary,
+                  labelStyle: TextStyle(
+                    color:
+                        isSelected ? Colors.white : AppColors.textSecondary,
+                    fontWeight: isSelected
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                    fontSize: 13,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const Divider(height: 1, color: AppColors.border),
+        // Project list
         Expanded(
-          child: projects.isEmpty
-              ? _buildEmptyState()
+          child: filtered.isEmpty
+              ? Center(
+                  child: Text(
+                    "No $_selectedLevel projects found.",
+                    style: const TextStyle(color: AppColors.textSecondary),
+                  ),
+                )
               : ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-                  itemCount: projects.length,
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
+                  itemCount: filtered.length,
                   itemBuilder: (context, index) {
-                    return _buildProjectCard(projects[index]);
+                    return _buildProjectCard(
+                        filtered[index] as Map<String, dynamic>);
                   },
                 ),
         ),
@@ -283,141 +354,72 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     );
   }
 
-  Widget _buildExplorerHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back_ios, size: 20, color: AppColors.primary),
-                onPressed: () => setState(() => _selectedDomain = null),
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                _selectedDomain!['domain_label'] ?? "",
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            "Choose a project difficulty level to get started.",
-            style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDifficultyTabs() {
-    return SizedBox(
-      height: 50,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: _levels.length,
-        itemBuilder: (context, index) {
-          final level = _levels[index];
-          final isSelected = _selectedLevel == level;
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: ChoiceChip(
-              label: Text(level),
-              selected: isSelected,
-              onSelected: (val) {
-                if (val) setState(() => _selectedLevel = level);
-              },
-              backgroundColor: AppColors.surface,
-              selectedColor: AppColors.primary,
-              labelStyle: TextStyle(
-                color: isSelected ? Colors.white : AppColors.textSecondary,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.search_off, size: 64, color: AppColors.textMuted.withOpacity(0.5)),
-          const SizedBox(height: 16),
-          Text(
-            "No $_selectedLevel projects found.",
-            style: const TextStyle(color: AppColors.textSecondary, fontSize: 16),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Requirement 4: Expandable Card Design & Requirement 6: Interaction
   Widget _buildProjectCard(Map<String, dynamic> project) {
-    final String title = project['title']?.toString() ?? "Untitled Project";
-    final String pId = project['level_id']?.toString() ?? 
-                       project['_id']?.toString() ?? 
-                       title;
+    final String title =
+        project['title']?.toString() ?? "Untitled Project";
+    final String pId = project['level_id']?.toString() ??
+        project['_id']?.toString() ??
+        title;
     final bool isExpanded = _expandedProjectId == pId;
-    final level = project['level']?.toString() ?? "Basic";
-    
+    final String level = project['level']?.toString() ?? "Basic";
+
     Color levelColor = Colors.green;
     if (level == "Intermediate") levelColor = Colors.orange;
     if (level == "Advanced") levelColor = Colors.red;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isExpanded ? levelColor.withOpacity(0.5) : AppColors.border,
-          width: isExpanded ? 2 : 1,
+          color: isExpanded
+              ? levelColor.withOpacity(0.5)
+              : AppColors.border,
+          width: isExpanded ? 1.5 : 1,
         ),
-        boxShadow: isExpanded ? [
-          BoxShadow(
-            color: levelColor.withOpacity(0.1),
-            blurRadius: 15,
-            spreadRadius: 2,
-          )
-        ] : [],
+        boxShadow: isExpanded
+            ? [
+                BoxShadow(
+                  color: levelColor.withOpacity(0.08),
+                  blurRadius: 12,
+                  spreadRadius: 1,
+                )
+              ]
+            : [],
       ),
       child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        data:
+            Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           key: PageStorageKey(pId),
           initiallyExpanded: isExpanded,
-          // Requirement 6: Only one can be expanded
           onExpansionChanged: (expanded) {
             setState(() {
               _expandedProjectId = expanded ? pId : null;
             });
           },
           leading: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: levelColor.withOpacity(0.1),
+              color: levelColor.withOpacity(0.12),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              level.substring(0, 1),
-              style: TextStyle(color: levelColor, fontWeight: FontWeight.bold),
+              level[0],
+              style: TextStyle(
+                  color: levelColor, fontWeight: FontWeight.bold),
             ),
           ),
           title: Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          subtitle: _buildSkillsWrap(project['skills_gained'] as List<dynamic>? ?? [], levelColor),
+          subtitle: _buildSkillChips(
+              project['skills_gained'] as List<dynamic>? ?? [],
+              levelColor),
           trailing: AnimatedRotation(
             turns: isExpanded ? 0.5 : 0,
             duration: const Duration(milliseconds: 200),
@@ -426,50 +428,18 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           children: [
             const Divider(color: AppColors.border, height: 1),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildSection("Tagline", project['tagline']),
                   _buildSection("Overview", project['overview']),
-                  _buildSection("What you will build", project['what_you_will_build']),
-                  
-                  const SizedBox(height: 12),
-                  const Text(
-                    "Trending Technologies",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
-                  ),
-                  const SizedBox(height: 8),
-                  ... (project['trending_technologies'] as List<dynamic>? ?? []).map((step) => Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("• ", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
-                        Expanded(child: Text(step.toString(), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary))),
-                      ],
-                    ),
-                  )),
-
-                  const SizedBox(height: 12),
-                  const Text(
-                    "Trending Tech Stack",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: (project['trending_technologies'] as List<dynamic>? ?? []).map((tech) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.background,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: Text(tech.toString(), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
-                    )).toList(),
-                  ),
+                  _buildSection(
+                      "What you will build", project['what_you_will_build']),
+                  _buildLearnList(
+                      project['what_you_will_learn'] as List<dynamic>?),
+                  _buildTechChips(
+                      project['trending_technologies'] as List<dynamic>?),
                 ],
               ),
             ),
@@ -479,43 +449,118 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     );
   }
 
-  Widget _buildSkillsWrap(List<dynamic> skills, Color levelColor) {
+  Widget _buildSkillChips(List<dynamic> skills, Color color) {
+    if (skills.isEmpty) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Wrap(
-        spacing: 6,
-        runSpacing: 6,
-        children: skills.take(3).map((skill) => Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-          decoration: BoxDecoration(
-            color: levelColor.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            skill.toString(),
-            style: TextStyle(fontSize: 10, color: levelColor.withOpacity(0.8)),
-          ),
-        )).toList(),
+        spacing: 4,
+        runSpacing: 4,
+        children: skills.take(3).map((s) => Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(s.toString(),
+                  style: TextStyle(
+                      fontSize: 10, color: color.withOpacity(0.9))),
+            )).toList(),
       ),
     );
   }
 
-  Widget _buildSection(String title, dynamic content) {
-    if (content == null || content.toString().isEmpty) return const SizedBox.shrink();
+  Widget _buildLearnList(List<dynamic>? items) {
+    if (items == null || items.isEmpty) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 13),
-          ),
+          const Text("What you will learn",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                  fontSize: 13)),
+          const SizedBox(height: 6),
+          ...items.map((step) => Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("• ",
+                        style: TextStyle(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Text(step.toString(),
+                          style: const TextStyle(
+                              fontSize: 13,
+                              color: AppColors.textSecondary,
+                              height: 1.4)),
+                    ),
+                  ],
+                ),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTechChips(List<dynamic>? techs) {
+    if (techs == null || techs.isEmpty) return const SizedBox.shrink();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Trending Tech Stack",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary,
+                fontSize: 13)),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 6,
+          children: techs
+              .map((t) => Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.background,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Text(t.toString(),
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w500)),
+                  ))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSection(String title, dynamic content) {
+    if (content == null || content.toString().trim().isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                  fontSize: 13)),
           const SizedBox(height: 4),
-          Text(
-            content.toString(),
-            style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.4),
-          ),
+          Text(content.toString(),
+              style: const TextStyle(
+                  fontSize: 14,
+                  color: AppColors.textSecondary,
+                  height: 1.4)),
         ],
       ),
     );

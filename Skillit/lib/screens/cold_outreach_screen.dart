@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
 class ColdOutreachScreen extends StatefulWidget {
@@ -88,6 +89,68 @@ class _ColdOutreachScreenState extends State<ColdOutreachScreen> {
           return '';
       }
     }
+  }
+  
+  void _onDirectSend() async {
+    if (_generatedMessage.isEmpty) return;
+
+    if (_isEmailMode) {
+      // Extract subject and body if present
+      String subject = "Networking Outreach";
+      String body = _generatedMessage;
+
+      if (_generatedMessage.startsWith("Subject:")) {
+        final lines = _generatedMessage.split("\n\n");
+        if (lines.length > 1) {
+          subject = lines[0].replaceFirst("Subject:", "").trim();
+          body = lines.sublist(1).join("\n\n").trim();
+        }
+      }
+
+      final Uri emailUri = Uri(
+        scheme: 'mailto',
+        query: _encodeQueryParameters({
+          'subject': subject,
+          'body': body,
+        }),
+      );
+
+      if (await canLaunchUrl(emailUri)) {
+        await launchUrl(emailUri);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Could not launch default mail app")),
+          );
+        }
+      }
+    } else {
+      // LinkedIn Direct
+      final Uri linkedinUri = Uri.parse("https://www.linkedin.com/messaging/");
+      // Copy to clipboard automatically for convenience
+      await Clipboard.setData(ClipboardData(text: _generatedMessage));
+      
+      if (await canLaunchUrl(linkedinUri)) {
+        try {
+          await launchUrl(linkedinUri, mode: LaunchMode.externalApplication);
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("LinkedIn opened! Message copied to clipboard.")),
+            );
+          }
+        } catch (e) {
+             // Fallback to web
+             await launchUrl(linkedinUri, mode: LaunchMode.platformDefault);
+        }
+      }
+    }
+  }
+
+  String? _encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
 
   @override
@@ -328,6 +391,26 @@ class _ColdOutreachScreenState extends State<ColdOutreachScreen> {
           SelectableText(
             _generatedMessage,
             style: const TextStyle(fontSize: 15, height: 1.6, color: AppColors.textPrimary),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: _onDirectSend,
+                  icon: Icon(_isEmailMode ? Icons.email_rounded : Icons.hub_rounded, size: 18, color: Colors.white),
+                  label: Text(
+                    _isEmailMode ? "Direct Mail" : "Go to LinkedIn",
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    backgroundColor: _isEmailMode ? AppColors.primary : const Color(0xFF0077B5),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

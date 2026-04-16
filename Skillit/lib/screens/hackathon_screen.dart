@@ -210,16 +210,35 @@ class _HackathonScreenState extends State<HackathonScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(item["organizer"] ?? "Global Host", style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
-            const SizedBox(height: 4),
-            Row(
+            const SizedBox(height: 6),
+            // Prize Pool Row
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF6FFED),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color: const Color(0xFFB7EB8F)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                   const Icon(Icons.payments_outlined, size: 14, color: Color(0xFF52C41A)),
+                   const SizedBox(width: 4),
+                   Text(
+                     item["prize"] ?? "Prizes TBA",
+                     style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF52C41A)),
+                   ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 12,
+              runSpacing: 4,
               children: [
-                const Icon(Icons.calendar_today_rounded, size: 12, color: Color(0xFF8E8E93)),
-                const SizedBox(width: 4),
-                Text(item["date"] ?? "TBA", style: const TextStyle(fontSize: 12, color: Color(0xFF8E8E93))),
-                const SizedBox(width: 12),
-                const Icon(Icons.location_on_rounded, size: 12, color: Color(0xFF8E8E93)),
-                const SizedBox(width: 4),
-                Text(item["mode"] ?? "Online", style: const TextStyle(fontSize: 12, color: Color(0xFF8E8E93))),
+                _buildMetaItem(Icons.calendar_today_rounded, item["date"] ?? "TBA"),
+                _buildMetaItem(Icons.timer_outlined, item["deadline"] ?? "Open", color: AppColors.error),
+                _buildMetaItem(Icons.location_on_rounded, item["mode"] ?? "Online"),
               ],
             ),
           ],
@@ -242,6 +261,23 @@ class _HackathonScreenState extends State<HackathonScreen> {
         ),
         onTap: () => _openLink(item["link"] ?? ""),
       ),
+    );
+  }
+
+  Widget _buildMetaItem(IconData icon, String label, {Color? color}) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 12, color: color ?? const Color(0xFF8E8E93)),
+        const SizedBox(width: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: color ?? const Color(0xFF8E8E93),
+          ),
+        ),
+      ],
     );
   }
 }

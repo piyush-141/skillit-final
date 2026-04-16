@@ -826,6 +826,7 @@ class ApiService {
       "mode": item["mode"] ?? "Online",
       "link": item["link"] ?? item["url"] ?? "",
       "date": item["date"] ?? item["startDate"] ?? "TBA",
+      "deadline": item["deadline"] ?? "Open", // Added deadline mapping
       "tags": item["tags"] is List ? item["tags"] : [],
     };
   }

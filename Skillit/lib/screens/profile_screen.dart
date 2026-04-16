@@ -93,26 +93,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: _isLoading 
-        ? const Center(child: CircularProgressIndicator())
-        : RefreshIndicator(
-            onRefresh: _loadProfile,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  _buildProfileHeader(context),
-                  const SizedBox(height: 24),
-                  _buildDomainSection(),
-                  const SizedBox(height: 24),
-                  _buildStatsRow(),
-                  const SizedBox(height: 32),
-                  _buildMenuSection(context),
-                  const SizedBox(height: 100),
-                ],
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+              onRefresh: _loadProfile,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    _buildProfileHeader(context),
+                    const SizedBox(height: 24),
+                    _buildDomainSection(),
+                    const SizedBox(height: 24),
+                    _buildStatsRow(),
+                    const SizedBox(height: 32),
+                    _buildMenuSection(context),
+                    const SizedBox(height: 100),
+                  ],
+                ),
               ),
             ),
-          ),
     );
   }
 
@@ -135,7 +135,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           child: Center(
             child: Text(
-              widget.userName.isNotEmpty ? widget.userName[0].toUpperCase() : "U",
+              widget.userName.isNotEmpty
+                  ? widget.userName[0].toUpperCase()
+                  : "U",
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -147,7 +149,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SizedBox(height: 16),
         Text(
           _currentName,
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 24),
+          style:
+              Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 24),
         ),
         Text(
           widget.userEmail,
@@ -209,12 +212,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (context, snapshot) {
         final savedInternships = snapshot.data?[0].length ?? 0;
         final savedHackathons = snapshot.data?[1].length ?? 0;
-        
+
         return Row(
           children: [
             Expanded(
               child: _buildSimpleStatCard(
-                "Saved Internships", 
+                "Saved Internships",
                 savedInternships.toString(),
                 Icons.work_outline_rounded,
               ),
@@ -222,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(width: 16),
             Expanded(
               child: _buildSimpleStatCard(
-                "Saved Hackathons", 
+                "Saved Hackathons",
                 savedHackathons.toString(),
                 Icons.code_rounded,
               ),
@@ -339,8 +342,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (_) => const ResumePreviewScreen()),
+              MaterialPageRoute(builder: (_) => const ResumePreviewScreen()),
             );
           },
           contentPadding:
@@ -360,8 +362,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               if (snapshot.connectionState == ConnectionState.done)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: hasResume
                         ? AppColors.success.withOpacity(0.12)
@@ -369,13 +371,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    hasResume ? 'Ready' : 'Not built',
+                    hasResume ? 'Ready' : '',
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
-                      color: hasResume
-                          ? AppColors.success
-                          : AppColors.textMuted,
+                      color:
+                          hasResume ? AppColors.success : AppColors.textMuted,
                     ),
                   ),
                 ),
@@ -389,7 +390,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title, {Color? color, VoidCallback? onTap}) {
+  Widget _buildMenuItem(IconData icon, String title,
+      {Color? color, VoidCallback? onTap}) {
     return ListTile(
       onTap: onTap ?? () {},
       contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
@@ -402,7 +404,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      trailing: const Icon(Icons.chevron_right, color: AppColors.textMuted, size: 20),
+      trailing:
+          const Icon(Icons.chevron_right, color: AppColors.textMuted, size: 20),
     );
   }
 }

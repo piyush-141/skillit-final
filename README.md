@@ -1,6 +1,7 @@
 # Skillit
 
 ## 1. Overview
+
 Skillit is a comprehensive student career development platform designed to bridge the gap between academic learning and professional opportunities. It aggregates verified internships, hackathons, and curated skill roadmaps into a single, high-fidelity mobile experience.
 
 Targeted at students and early-career seekers, Skillit's key value proposition is **reliability and speed**. By using a sophisticated caching layer for external data, the platform ensures that users always have access to career opportunities without the latency of real-time web scraping.
@@ -8,6 +9,7 @@ Targeted at students and early-career seekers, Skillit's key value proposition i
 ---
 
 ## 2. Features
+
 - **User Authentication**: Secure signup and login using JWT and password hashing.
 - **Curated Internships**: A massive database of verified internship listings from platforms like Internshala.
 - **Hackathon Tracker**: Real-time tracking of upcoming hackathons with details on prizes, team size, and deadlines.
@@ -18,10 +20,12 @@ Targeted at students and early-career seekers, Skillit's key value proposition i
 ---
 
 ## 3. Tech Stack
+
 - **Frontend (Flutter)**: Cross-platform mobile development using Dart.
 - **Backend (Node.js / Express)**: RESTful API server handling logic and authentication.
 - **Database (MongoDB)**: Used via Mongoose for user persistence and as a cache for external listings.
-- **External Services**: **Apify** for data scraping/ingestion; **Google Fonts** for typography.
+- **External Services**: **Apify** for data scraping/ingestion;
+- **Google Fonts** for typography.
 
 ---
 
@@ -64,6 +68,7 @@ skillit-final/
 ## 6. Getting Started (CRITICAL)
 
 ### Prerequisites
+
 - **Flutter SDK** (3.0.0 or higher)
 - **Node.js** (v16.x or higher)
 - **npm** or **yarn**
@@ -73,17 +78,20 @@ skillit-final/
 ### Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/piyush-141/skillit-final.git
    ```
 
 2. **Install Backend Dependencies**:
+
    ```bash
    cd Skillit-Backend
    npm install
    ```
 
 3. **Install Frontend Dependencies**:
+
    ```bash
    cd ../Skillit
    flutter pub get
@@ -93,6 +101,7 @@ skillit-final/
    In `Skillit-Backend/`, create a `.env` file based on the section below.
 
 5. **Start the Backend**:
+
    ```bash
    cd ../Skillit-Backend
    npm run dev
@@ -123,10 +132,12 @@ Create a `.env` file in the `Skillit-Backend/` directory:
 ## 8. Running the Project
 
 ### Backend
+
 - **Command**: `npm run dev` (starts server with nodemon).
 - **Expected Output**: `✅ MongoDB Connected` and `🚀 Server running on port 5000`.
 
 ### Frontend
+
 - **Command**: `flutter run`
 - **Known Issue**: The `baseUrl` in `lib/services/api_service.dart` is currently hardcoded to a local IPv4 address. You **must** update this to your machine's current IP address or `localhost` (for simulators) to connect to the backend.
 
@@ -148,14 +159,14 @@ Create a `.env` file in the `Skillit-Backend/` directory:
 
 ## 10. API Endpoints
 
-| Route | Method | Purpose |
-| :--- | :--- | :--- |
-| `/api/auth/register` | POST | Create new user account |
-| `/api/auth/login` | POST | Get auth token and user info |
-| `/api/internships` | GET | Fetch list of curated internships |
-| `/api/hackathons` | GET | Fetch list of upcoming hackathons |
-| `/api/roadmaps` | GET | Fetch career skill roadmaps |
-| `/api/companies` | GET | Fetch top hiring companies |
+| Route                | Method | Purpose                           |
+| :------------------- | :----- | :-------------------------------- |
+| `/api/auth/register` | POST   | Create new user account           |
+| `/api/auth/login`    | POST   | Get auth token and user info      |
+| `/api/internships`   | GET    | Fetch list of curated internships |
+| `/api/hackathons`    | GET    | Fetch list of upcoming hackathons |
+| `/api/roadmaps`      | GET    | Fetch career skill roadmaps       |
+| `/api/companies`     | GET    | Fetch top hiring companies        |
 
 ---
 

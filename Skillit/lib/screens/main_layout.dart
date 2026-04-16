@@ -6,6 +6,7 @@ import 'opportunities_screen.dart';
 import 'skills_screen.dart';
 import 'companies_screen.dart';
 import 'profile_screen.dart';
+import '../services/auth_service.dart';
 
 class MainLayout extends StatefulWidget {
   final String userName;
@@ -25,6 +26,7 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
     super.initState();
+    AuthService.init(); // Initialize reactive state
     _screens = [
       HomeScreen(userName: widget.userName, userEmail: widget.userEmail),
       const OpportunitiesScreen(),

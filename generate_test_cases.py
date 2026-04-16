@@ -358,8 +358,8 @@ home = [
    "User profile name displays correctly after domain update",
    "User changed domain to 'Cybersecurity' via Edit Profile; navigated back to Home",
    "Home screen shows updated domain in profile chip or header",
-   "Domain not visually reflected on Home — would require hot reload or re-fetch",
-   "Fail", "Medium"),
+   "Domain successfully updated on Home header.",
+   "Pass", "Medium"),
 
   ("Home Screen",
    "HOME-019",

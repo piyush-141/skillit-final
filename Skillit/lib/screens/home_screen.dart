@@ -13,6 +13,7 @@ import 'cold_outreach_screen.dart';
 import 'resume_builder_screen.dart';
 import 'profile_screen.dart';
 import 'skills_screen.dart';
+import '../services/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -446,39 +447,64 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child: ValueListenableBuilder<Map<String, String>>(
+                valueListenable: AuthService.userNotifier,
+                builder: (context, userInfo, _) {
+                  final name = userInfo['name'] ?? widget.userName;
+                  final domain = userInfo['domain'] ?? 'Not Set';
+                  
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 64, 24, 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Hello,",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: AppColors.textSecondary)),
-                        Text(widget.userName,
-                            style: Theme.of(context).textTheme.displayMedium),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Hello,",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(color: AppColors.textSecondary)),
+                              Text(name,
+                                  style: Theme.of(context).textTheme.displayMedium),
+                              const SizedBox(height: 4),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  domain.toUpperCase(),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => _showProfileMenu(context),
+                          child: CircleAvatar(
+                            radius: 22,
+                            backgroundColor: AppColors.grayBg,
+                            child: Text(
+                                name.isNotEmpty ? name[0].toUpperCase() : 'U',
+                                style: const TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () => _showProfileMenu(context),
-                      child: CircleAvatar(
-                        radius: 22,
-                        backgroundColor: AppColors.grayBg,
-                        child: Text(
-                            widget.userName.isNotEmpty
-                                ? widget.userName[0].toUpperCase()
-                                : 'U',
-                            style: const TextStyle(
-                                color: AppColors.textPrimary,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
 

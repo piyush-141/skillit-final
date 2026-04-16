@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart'; // Added for ValueNotifier
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
@@ -5,6 +6,19 @@ class AuthService {
   static const String _keyUserName = "user_name";
   static const String _keyUserEmail = "user_email";
   static const String _keyUserDomain = "user_domain";
+
+  // Reactive state for user info
+  static final ValueNotifier<Map<String, String>> userNotifier = ValueNotifier({
+    'name': 'User',
+    'email': '',
+    'domain': 'Not Set',
+  });
+
+  // Initialize notifier from cache
+  static Future<void> init() async {
+    final info = await getUserInfo();
+    userNotifier.value = info;
+  }
 
   // Check if user is logged in
   static Future<bool> isLoggedIn() async {
@@ -31,6 +45,13 @@ class AuthService {
     await prefs.setString(_keyUserName, name);
     await prefs.setString(_keyUserEmail, email);
     if (domain != null) await prefs.setString(_keyUserDomain, domain);
+    
+    // Trigger update
+    userNotifier.value = {
+      'name': name,
+      'email': email,
+      'domain': domain ?? 'Not Set',
+    };
   }
 
   // Save partial user data
@@ -39,8 +60,17 @@ class AuthService {
     String? domain,
   }) async {
     final prefs = await SharedPreferences.getInstance();
+    final current = userNotifier.value;
+    
     if (name != null) await prefs.setString(_keyUserName, name);
     if (domain != null) await prefs.setString(_keyUserDomain, domain);
+    
+    // Trigger update
+    userNotifier.value = {
+      'name': name ?? current['name'] ?? 'User',
+      'email': current['email'] ?? '',
+      'domain': domain ?? current['domain'] ?? 'Not Set',
+    };
   }
 
   // Get cached user info
@@ -57,5 +87,6 @@ class AuthService {
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+    userNotifier.value = {'name': 'User', 'email': '', 'domain': 'Not Set'};
   }
 }

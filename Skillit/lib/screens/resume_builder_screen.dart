@@ -41,8 +41,10 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
   final _portfolioController = TextEditingController();
 
   // ── Skills ──
-  final _skillInputController = TextEditingController();
-  List<String> _skills = [];
+  final _languagesController = TextEditingController();
+  final _frameworksController = TextEditingController();
+  final _toolsController = TextEditingController();
+  final _othersController = TextEditingController();
 
   // ── Projects ──
   List<ProjectEntry> _projects = [];
@@ -111,7 +113,10 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
     _githubController.dispose();
     _linkedinController.dispose();
     _portfolioController.dispose();
-    _skillInputController.dispose();
+    _languagesController.dispose();
+    _frameworksController.dispose();
+    _toolsController.dispose();
+    _othersController.dispose();
     _projTitleController.dispose();
     _projDescController.dispose();
     _projTechController.dispose();
@@ -190,13 +195,16 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
                         color: AppColors.textPrimary,
                         letterSpacing: -0.5,
                       )),
-                  // const SizedBox(height: 2),
-                  // Text('Apple Inspired Editor', style: GoogleFonts.inter(
-                  //   fontSize: 13, color: AppColors.textMuted,
-                  // )),
                 ],
               ),
             ),
+            IconButton(
+              onPressed: _autofillSampleData,
+              tooltip: 'Autofill with Sample Data',
+              icon: Icon(Icons.auto_fix_high_rounded,
+                  color: AppColors.textMuted.withOpacity(0.3), size: 18),
+            ),
+            const SizedBox(width: 8),
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -381,36 +389,26 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
       title: 'Skills & Links',
       subtitle: 'What do you know?',
       children: [
-        Row(
-          children: [
-            Expanded(
-                child: _buildTextField(
-                    controller: _skillInputController,
-                    label: 'Add Skill',
-                    hint: 'Flutter, Python...',
-                    icon: Icons.code)),
-            const SizedBox(width: 10),
-            IconButton(
-                onPressed: _addSkill,
-                icon: const Icon(Icons.add_circle),
-                color: Colors.cyan,
-                iconSize: 40),
-          ],
-        ),
-        if (_skills.isNotEmpty) ...[
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _skills
-                .map((s) => Chip(
-                      label: Text(s, style: const TextStyle(fontSize: 12)),
-                      onDeleted: () => setState(() => _skills.remove(s)),
-                      deleteIconColor: Colors.red,
-                    ))
-                .toList(),
-          ),
-        ],
+        _buildTextField(
+            controller: _languagesController,
+            label: 'Programming Languages',
+            hint: 'JavaScript, Python, C++...',
+            icon: Icons.code),
+        _buildTextField(
+            controller: _frameworksController,
+            label: 'Frameworks & Libraries',
+            hint: 'React, Flutter, Node.js...',
+            icon: Icons.layers_outlined),
+        _buildTextField(
+            controller: _toolsController,
+            label: 'Developer Tools',
+            hint: 'Git, Docker, AWS, Firebase...',
+            icon: Icons.handyman_outlined),
+        _buildTextField(
+            controller: _othersController,
+            label: 'Other Skills',
+            hint: 'System Design, Agile, UI/UX...',
+            icon: Icons.psychology_outlined),
         const SizedBox(height: 20),
         _buildTextField(
             controller: _githubController,
@@ -685,9 +683,6 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
 
   void _autoSaveCurrentStep() {
     switch (_currentStep) {
-      case 2: // Skills
-        if (_skillInputController.text.trim().isNotEmpty) _addSkill();
-        break;
       case 3: // Projects
         if (_projTitleController.text.trim().isNotEmpty) _addProject();
         break;
@@ -700,14 +695,6 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
     }
   }
 
-  void _addSkill() {
-    if (_skillInputController.text.isNotEmpty) {
-      setState(() {
-        _skills.add(_skillInputController.text.trim());
-        _skillInputController.clear();
-      });
-    }
-  }
 
   void _addProject() {
     if (_projTitleController.text.isNotEmpty) {
@@ -769,7 +756,28 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
         githubUrl: _githubController.text.trim(),
         linkedinUrl: _linkedinController.text.trim(),
         portfolioUrl: _portfolioController.text.trim(),
-        skills: _skills,
+        skills: {
+          'Programming Languages': _languagesController.text
+              .split(',')
+              .map((e) => e.trim())
+              .where((e) => e.isNotEmpty)
+              .toList(),
+          'Frameworks & Libraries': _frameworksController.text
+              .split(',')
+              .map((e) => e.trim())
+              .where((e) => e.isNotEmpty)
+              .toList(),
+          'Developer Tools': _toolsController.text
+              .split(',')
+              .map((e) => e.trim())
+              .where((e) => e.isNotEmpty)
+              .toList(),
+          'Other Skills': _othersController.text
+              .split(',')
+              .map((e) => e.trim())
+              .where((e) => e.isNotEmpty)
+              .toList(),
+        },
         projects: _projects,
         experience: _experience,
         achievements: _achievements,
@@ -804,8 +812,89 @@ class _ResumeBuilderScreenState extends State<ResumeBuilderScreen>
     }
   }
 
-  void _showSnackbar(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+  void _autofillSampleData() {
+    setState(() {
+      // Personal
+      _nameController.text = "Nitesh Singh";
+      _emailController.text = "nitesh@jobfound.org";
+      _phoneController.text = "9999999999";
+      _summaryController.text = "";
+
+      // Education
+      _collegeController.text = "University of California, Berkeley";
+      _degreeController.text = "Bachelor of Science in Computer Science";
+      _cgpaController.text = "3.85";
+      _gradYearController.text = "Aug 2020 – May 2024";
+
+      // Links
+      _githubController.text = "github.com/Nitesh-Singh-5";
+      _linkedinController.text = "linkedin.com/in/nitesh-singh-2001";
+      _portfolioController.text = "";
+
+      // Skills
+      _languagesController.text = "JavaScript, TypeScript, Python, Java, SQL, Go";
+      _frameworksController.text = "React, Next.js, Node.js, Express, Django, TailwindCSS";
+      _toolsController.text = "Git, Docker, AWS, PostgreSQL, MongoDB, Redis, GitHub Actions";
+      _othersController.text = "System Design, Agile/Scrum, Technical Writing";
+
+      // Projects
+      _projects = [
+        ProjectEntry(
+          title: "AI-Powered Study Assistant",
+          techStack: "Python, OpenAI API, React, PostgreSQL",
+          description:
+              "Built a GPT-4 study assistant that summarizes documents and generates quizzes; reduced average study time ~40% based on user feedback + analytics.\nCut LLM spend ~60% via prompt optimization, caching, and output-length controls while maintaining answer quality.\nScaled to 500+ active users in month 1; shipped a hosted demo and instrumented events to reach ~25 min avg session duration.",
+          link: "github.com/Nitesh-Singh-5/",
+        ),
+        ProjectEntry(
+          title: "Real-time Collaboration Tool",
+          techStack: "Next.js, Socket.io, MongoDB, Docker",
+          description:
+              "Built real-time collaborative editing with Socket.io + operational transformation; supported 50+ concurrent editors without conflicts.\nImplemented OAuth2 + RBAC for team workspaces; secured APIs and improved auditability with role-scoped permissions.\nDeployed Docker services to GKE; achieved 99.9% uptime with health checks, autoscaling, and automated restarts for failures.",
+          link: "github.com/Nitesh-Singh-5/",
+        ),
+      ];
+
+      // Experience
+      _experience = [
+        ExperienceEntry(
+          role: "Software Engineering Intern",
+          company: "Tech Startup Inc.",
+          duration: "May 2023 – Aug 2023",
+          description:
+              "Shipped 15+ Node.js/Express REST APIs and Redis caching; cut p95 latency ~40% and improved DB query performance via indexing + query tuning.\nBuilt React dashboard UI for 10,000+ DAU; improved usability by streamlining key workflows and reducing UI regressions with component reuse.\nAutomated CI/CD with GitHub Actions; reduced deploy time 45—15 mins and eliminated manual release errors with checks + rollback-friendly steps.",
+        ),
+        ExperienceEntry(
+          role: "Full Stack Developer",
+          company: "Innovation Labs",
+          duration: "Jan 2024 – Present",
+          description:
+              "Architected a multi-tenant SaaS on Next.js 14 + PostgreSQL; supported 5,000+ concurrent users with optimized pooling, caching, and observability.\nIntegrated Stripe subscriptions (checkout, webhooks, retries) and improved payment reliability with idempotency + clear failure handling.\nLed 3 engineers with weekly reviews and mentorship; raised code quality via TypeScript standards, docs, and scalable system-design patterns.",
+        ),
+      ];
+
+      // Achievements
+      _achievements = [
+        "Dean's List — All semesters (Top 5% of class)",
+        "1st Place — University Hackathon 2023 (500+ participants)",
+        "Published research paper on ML optimization at an IEEE conference",
+        "Built and scaled production systems serving 10,000+ users with 99.9% uptime",
+        "Reduced API + infrastructure costs by 60% via performance tuning and caching"
+      ];
+
+      _currentStep = 0;
+    });
+
+    _showSnackbar('Form populated with sample data');
+  }
+
+  void _showSnackbar(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.primary,
+      ),
+    );
   }
 }

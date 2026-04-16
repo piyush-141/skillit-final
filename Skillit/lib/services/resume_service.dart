@@ -15,7 +15,7 @@ class ResumeData {
   final String githubUrl;
   final String linkedinUrl;
   final String portfolioUrl;
-  final List<String> skills;
+  final Map<String, List<String>> skills;
   final List<ProjectEntry> projects;
   final List<ExperienceEntry> experience;
   final List<String> achievements;
@@ -120,22 +120,12 @@ class ResumeGenerator {
                 ),
               ),
             ),
-            pw.SizedBox(height: 4),
             pw.Center(
               child: pw.Text(
                 '${data.email} | ${data.phone} ${data.linkedinUrl.isNotEmpty ? "| " + data.linkedinUrl : ""} ${data.githubUrl.isNotEmpty ? "| " + data.githubUrl : ""}',
                 style: pw.TextStyle(font: mainFont, fontSize: 9),
               ),
             ),
-            if (data.portfolioUrl.isNotEmpty) ...[
-              pw.SizedBox(height: 2),
-              pw.Center(
-                child: pw.Text(
-                  data.portfolioUrl,
-                  style: pw.TextStyle(font: mainFont, fontSize: 9),
-                ),
-              ),
-            ],
             pw.SizedBox(height: 12),
 
             // ===== SUMMARY =====
@@ -157,7 +147,7 @@ class ResumeGenerator {
                     style: pw.TextStyle(font: boldFont, fontSize: 10),
                   ),
                   pw.Text(
-                    'Grad: ${data.graduationYear}',
+                    data.graduationYear, // "Aug 2020 – May 2024"
                     style: pw.TextStyle(font: mainFont, fontSize: 9),
                   ),
                 ],
@@ -167,10 +157,11 @@ class ResumeGenerator {
                 children: [
                   pw.Text(
                     '${data.degree}  GPA: ${data.cgpa}',
-                    style: pw.TextStyle(font: mainFont, fontSize: 9),
+                    style: pw.TextStyle(
+                        font: mainFont, fontSize: 9, fontStyle: pw.FontStyle.italic),
                   ),
                   pw.Text(
-                    'India',
+                    'Berkeley, CA',
                     style: pw.TextStyle(font: mainFont, fontSize: 9),
                   ),
                 ],
@@ -196,13 +187,22 @@ class ResumeGenerator {
                         ),
                       ],
                     ),
-                    pw.Text(
-                      exp.role,
-                      style: pw.TextStyle(
-                        font: mainFont,
-                        fontSize: 9,
-                        fontStyle: pw.FontStyle.italic,
-                      ),
+                    pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Text(
+                          exp.role,
+                          style: pw.TextStyle(
+                            font: mainFont,
+                            fontSize: 9,
+                            fontStyle: pw.FontStyle.italic,
+                          ),
+                        ),
+                        pw.Text(
+                          'San Francisco, CA', // Default location as placeholder/data
+                          style: pw.TextStyle(font: mainFont, fontSize: 9),
+                        ),
+                      ],
                     ),
                     pw.SizedBox(height: 2),
                     ..._bulletList(exp.description, mainFont),
@@ -217,34 +217,32 @@ class ResumeGenerator {
                 return pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
-                    pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.RichText(
-                          text: pw.TextSpan(
-                            text: proj.title,
-                            style: pw.TextStyle(font: boldFont, fontSize: 10),
-                            children: [
-                              if (proj.link.isNotEmpty)
-                                pw.TextSpan(
-                                  text: '  ${proj.link}',
-                                  style: pw.TextStyle(
-                                    font: mainFont,
-                                    fontSize: 9,
-                                    decoration: pw.TextDecoration.underline,
-                                  ),
-                                )
-                            ],
+                    pw.RichText(
+                      text: pw.TextSpan(
+                        text: proj.title,
+                        style: pw.TextStyle(font: boldFont, fontSize: 10),
+                        children: [
+                          if (proj.link.isNotEmpty) ...[
+                            pw.TextSpan(text: '  '),
+                            pw.TextSpan(
+                              text: proj.link,
+                              style: pw.TextStyle(
+                                font: mainFont,
+                                fontSize: 9,
+                                decoration: pw.TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                          pw.TextSpan(
+                            text: ' | ${proj.techStack}',
+                            style: pw.TextStyle(
+                              font: mainFont,
+                              fontSize: 9,
+                              color: PdfColors.grey700,
+                              fontStyle: pw.FontStyle.italic,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    pw.Text(
-                      proj.techStack,
-                      style: pw.TextStyle(
-                        font: mainFont,
-                        fontSize: 9,
-                        fontStyle: pw.FontStyle.italic,
+                        ],
                       ),
                     ),
                     pw.SizedBox(height: 2),
@@ -256,12 +254,24 @@ class ResumeGenerator {
 
             // ===== SKILLS =====
             if (data.skills.isNotEmpty)
-              section('TECHNICAL SKILLS', [
-                pw.Text(
-                  data.skills.join(', '),
-                  style: pw.TextStyle(font: mainFont, fontSize: 9),
-                )
-              ]),
+              section('TECHNICAL SKILLS', data.skills.entries.map((entry) {
+                if (entry.value.isEmpty) return pw.SizedBox();
+                return pw.Padding(
+                  padding: const pw.EdgeInsets.only(bottom: 2),
+                  child: pw.RichText(
+                    text: pw.TextSpan(
+                      text: '${entry.key}: ',
+                      style: pw.TextStyle(font: boldFont, fontSize: 9),
+                      children: [
+                        pw.TextSpan(
+                          text: entry.value.join(', '),
+                          style: pw.TextStyle(font: mainFont, fontSize: 9),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList()),
 
             // ===== ACHIEVEMENTS =====
             if (data.achievements.isNotEmpty)

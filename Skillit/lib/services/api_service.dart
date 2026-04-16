@@ -762,15 +762,19 @@ class ApiService {
     try {
       final response = await http
           .get(Uri.parse("$baseUrl/projects"))
-          .timeout(const Duration(seconds: 2));
+          .timeout(const Duration(seconds: 8));
       if (response.statusCode == 200) return jsonDecode(response.body);
-    } catch (_) {}
+    } catch (_) {
+      print("ℹ️ Projects: API timeout/error, loading from local assets.");
+    }
 
     try {
+      print("📂 Loading Projects from Assets...");
       final String assetData =
           await rootBundle.loadString('assets/data/projects.json');
       return jsonDecode(assetData);
     } catch (e) {
+      print("❌ Asset Loader Error: $e");
       return {"domains": []};
     }
   }

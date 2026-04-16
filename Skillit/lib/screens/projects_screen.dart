@@ -95,9 +95,11 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               );
 
     if (widget.hideAppBar) {
-      return Material(
-        color: AppColors.background,
-        child: body,
+      return SizedBox.expand(
+        child: Material(
+          color: AppColors.background,
+          child: SafeArea(child: body),
+        ),
       );
     }
 
